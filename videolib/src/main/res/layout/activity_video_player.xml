@@ -21,27 +21,29 @@
         <include layout="@layout/layout_bottom_control" />
     </LinearLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/ll_loading"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/bg_player_loading_background"
-        android:gravity="center"
         android:orientation="horizontal" >
-
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/btn_exit_video"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginLeft="16dp"
+            android:paddingLeft="11dp"
+            android:gravity="center"
+            android:drawableLeft="@drawable/btn_close_video"
+            />
         <ProgressBar
-            android:layout_width="20dp"
-            android:layout_height="20dp" />
-
-        <TextView
+            android:id="@+id/progressbar"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:singleLine="true"
-            android:text="正在加载中..."
-            android:textColor="@color/white"
-            android:textSize="16sp" />
-    </LinearLayout>
+            android:layout_centerInParent="true"
+            android:indeterminateDrawable="@drawable/cumstor_progress_video"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/ll_buffering"

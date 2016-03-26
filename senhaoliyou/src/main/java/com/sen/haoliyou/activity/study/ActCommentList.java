@@ -12,8 +12,6 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
@@ -26,8 +24,6 @@ import com.sen.haoliyou.mode.CommentItemBean;
 import com.sen.haoliyou.mode.EventComentCountForResouce;
 import com.sen.haoliyou.mode.EventComentCountForStudy;
 import com.sen.haoliyou.mode.EventSubmitComentSucess;
-import com.sen.haoliyou.reflesh.EndlessRecyclerOnScrollListener;
-import com.sen.haoliyou.reflesh.HeaderViewRecyclerAdapter;
 import com.sen.haoliyou.tools.Constants;
 import com.sen.haoliyou.tools.DialogUtils;
 import com.sen.haoliyou.tools.NetUtil;
@@ -81,7 +77,6 @@ public class ActCommentList extends BaseActivity  {
     private static final int SHOW_DATA = 1;
 
     private CommentListAdapter adapter;
-    private HeaderViewRecyclerAdapter headerViewRecyclerAdapter;
     private int sumbmitCount = 0;
     private  boolean isRefleshLoadMore = false;
 
@@ -114,7 +109,7 @@ public class ActCommentList extends BaseActivity  {
                         Log.e("sen", "刷新222444");
                     } else {
                         Log.e("sen", "刷新222");
-                        headerViewRecyclerAdapter.notifyDataSetChanged();
+                        adapter.notifyDataSetChanged();
                     }
 
 
@@ -126,7 +121,7 @@ public class ActCommentList extends BaseActivity  {
             return false;
         }
     });
-
+    private LinearLayoutManager linearnLayoutManager;
 
 
     @Override
@@ -168,7 +163,7 @@ public class ActCommentList extends BaseActivity  {
 
     private void settingRecyleView() {
         allCommonList = new ArrayList<>();
-        LinearLayoutManager linearnLayoutManager = new LinearLayoutManager(this);
+        linearnLayoutManager = new LinearLayoutManager(this);
         linearnLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         xRecyclerView.setLayoutManager(linearnLayoutManager);
         //如果可以确定每个item的高度是固定的，设置这个选项可以提高性能
@@ -176,9 +171,7 @@ public class ActCommentList extends BaseActivity  {
 
         xRecyclerView.addItemDecoration(new RecyleViewItemDecoration(this, R.drawable.shape_recycle_item_decoration));
         adapter = new CommentListAdapter(ActCommentList.this, allCommonList);
-        headerViewRecyclerAdapter = new HeaderViewRecyclerAdapter(adapter);
-        xRecyclerView.setAdapter(headerViewRecyclerAdapter);
-        createLoadMoreView();
+        xRecyclerView.setAdapter(adapter);
         swipe_refresh_widget.setColorSchemeResources(R.color.theme_color,R.color.theme_color);
         swipe_refresh_widget.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -195,29 +188,50 @@ public class ActCommentList extends BaseActivity  {
                 }, 1000);
             }
         });
-        xRecyclerView.addOnScrollListener(new EndlessRecyclerOnScrollListener(linearnLayoutManager) {
+        xRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            private int mCurrentState = RecyclerView.SCROLL_STATE_IDLE;
+
+
+            private int lastdy = 0;
+
+
             @Override
-            public void onLoadMore(int currentPages) {
-
-                mHandler.postDelayed(new Runnable() {
-                    public void run() {
-
-                        if (maxPage == currentPage) {
-                            Toast.makeText(ActCommentList.this, "没有更多数据了", Toast.LENGTH_SHORT).show();
-                            // 更新完后调用该方法结束刷新
-//                            headerViewRecyclerAdapter.setLoadMordFinshed();
-                            return;
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                if (mCurrentState == RecyclerView.SCROLL_STATE_DRAGGING || mCurrentState == RecyclerView.SCROLL_STATE_SETTLING) {
+                    if (dy < 0) {//向下滑动
+                        //可以不处理，在SwipeRefreshLayout的onRefreshListener中实现下拉刷新
+                    } else {//向上滑动
+                        RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
+                        if (layoutManager instanceof LinearLayoutManager) {
+                            int lastitem = linearnLayoutManager.findLastCompletelyVisibleItemPosition();
+                            if (recyclerView.getAdapter().getItemCount() == lastitem + 1) {
+                                mHandler.postDelayed(new Runnable() {
+                                    public void run() {
+                                        if (maxPage == currentPage) {
+                                            Toast.makeText(ActCommentList.this, "没有更多数据了", Toast.LENGTH_SHORT).show();
+                                            return;
+                                        }
+                                        isRefleshLoadMore = true;
+                                        currentPage++;
+                                        getCommntList(currentPage);
+                                        isRefleshLoadMore = false;
+                                    }
+                                }, 1000);
+                            }
                         }
-                        isRefleshLoadMore = true;
-                        currentPage++;
-                        getCommntList(currentPage);
-                        isRefleshLoadMore = false;
                     }
-                }, 1000);
+                    lastdy = dy;
+                }
+                super.onScrolled(recyclerView, dx, dy);
+            }
 
+
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                mCurrentState = newState;
+                super.onScrollStateChanged(recyclerView, newState);
             }
         });
-
     }
 
 
@@ -328,13 +342,6 @@ public class ActCommentList extends BaseActivity  {
         return false;
     }
 
-    private void createLoadMoreView() {
-        View loadMoreView = LayoutInflater
-                .from(ActCommentList.this)
-                .inflate(R.layout.view_load_more, xRecyclerView, false);
-        headerViewRecyclerAdapter.addFooterView(loadMoreView);
-
-    }
 
 
 

@@ -22,6 +22,7 @@ import android.view.View;
 import android.view.ViewConfiguration;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
@@ -49,8 +50,8 @@ public class VideoPlayerActivity extends VideoBaseActivity {
     private LinearLayout ll_bottom_control;
     private SeekBar video_seekbar;
     private TextView tv_current_progress, tv_duration;
-    private AppCompatTextView btn_exit,btn_play,btn_screen;
-    private LinearLayout ll_loading;
+    private AppCompatTextView btn_exit,btn_play,btn_screen,btn_exit_video;
+    private RelativeLayout ll_loading;
     private LinearLayout ll_buffering;
 
     private BatteryChangeReceiver batteryChangeReceiver;
@@ -100,11 +101,12 @@ public class VideoPlayerActivity extends VideoBaseActivity {
         video_seekbar = (SeekBar) findViewById(R.id.video_seekbar);
         btn_play = (AppCompatTextView) findViewById(R.id.btn_play);
         btn_exit = (AppCompatTextView) findViewById(R.id.btn_exit);
+        btn_exit_video = (AppCompatTextView) findViewById(R.id.btn_exit_video);
         btn_screen = (AppCompatTextView) findViewById(R.id.btn_screen);
         tv_current_progress = (TextView) findViewById(R.id.tv_current_progress);
         tv_duration = (TextView) findViewById(R.id.tv_duration);
 
-        ll_loading = (LinearLayout) findViewById(R.id.ll_loading);
+        ll_loading = (RelativeLayout) findViewById(R.id.ll_loading);
         ll_buffering = (LinearLayout) findViewById(R.id.ll_buffering);
 
     }
@@ -112,6 +114,7 @@ public class VideoPlayerActivity extends VideoBaseActivity {
     @Override
     protected void initListener() {
         btn_exit.setOnClickListener(this);
+        btn_exit_video.setOnClickListener(this);
         btn_screen.setOnClickListener(this);
         btn_play.setOnClickListener(this);
 
@@ -314,9 +317,11 @@ public class VideoPlayerActivity extends VideoBaseActivity {
             case R.id.btn_exit:
                 if (video_view.isPlaying()) {
                     video_view.pause();
-
                     handler.removeMessages(MESSAGE_UPDATE_PLAY_PROGRESS);
                 }
+                finish();
+                break;
+            case R.id.btn_exit_video:
                 finish();
                 break;
             case R.id.btn_play:
