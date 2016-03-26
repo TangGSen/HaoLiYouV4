@@ -2,6 +2,8 @@ package com.sen.haoliyou.activity.study;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatTextView;
 import android.widget.Toast;
@@ -35,6 +37,28 @@ public class ActWriteComment extends BaseActivity {
     AppCompatEditText et_content;
     @Bind(R.id.btn_submit)
     AppCompatTextView btn_submit;
+    private static final int ERROR = 0;
+    private static final int SHOW_DATA = 1;
+
+    private Handler mHandler = new Handler(new Handler.Callback() {
+        @Override
+        public boolean handleMessage(Message msg) {
+            switch (msg.what) {
+                case 0:
+                    setSubmitBtn(true);
+                    Toast.makeText(ActWriteComment.this, "网络异常，请重试", Toast.LENGTH_SHORT).show();
+
+                    break;
+                case 1:
+
+
+                    break;
+
+
+            }
+            return false;
+        }
+    });
 
     @Override
     protected void init() {
@@ -54,6 +78,7 @@ public class ActWriteComment extends BaseActivity {
         super.initView(savedInstanceState);
         setContentView(R.layout.activity_write_comment);
         ButterKnife.bind(this);
+        setSubmitBtn(true);
 
 
     }
@@ -69,6 +94,7 @@ public class ActWriteComment extends BaseActivity {
 
     @OnClick(R.id.btn_submit)
     public void submitContent() {
+        btn_submit.setEnabled(false);
         getContext = et_content.getText().toString().trim();
         if (getContext == null || getContext.length() == 0) {
             Toast.makeText(ActWriteComment.this, "评论内容不能为空", Toast.LENGTH_SHORT).show();
@@ -77,8 +103,13 @@ public class ActWriteComment extends BaseActivity {
         }
     }
 
+    public void setSubmitBtn(boolean isCan){
+        btn_submit.setEnabled(isCan);
+    }
+
     private void submitReview(String context) {
         if (!NetUtil.isNetworkConnected(this)) {
+            setSubmitBtn(true);
             Toast.makeText(ActWriteComment.this, "网络未连接", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -106,7 +137,7 @@ public class ActWriteComment extends BaseActivity {
 
                     @Override
                     public void onError(Call call, Exception e) {
-                        Toast.makeText(ActWriteComment.this, "网络异常，请重试", Toast.LENGTH_SHORT).show();
+                        mHandler.sendEmptyMessage(ERROR);
 
 
                     }

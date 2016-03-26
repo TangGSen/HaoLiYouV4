@@ -185,6 +185,8 @@ public class ActCommentList extends BaseActivity  {
             public void onRefresh() {
                 mHandler.postDelayed(new Runnable() {
                     public void run() {
+//                        headerViewRecyclerAdapter.setLoadMordFinshed();
+//                        createLoadMoreView();
                         isRefleshLoadMore = true;
                         allCommonList.clear();
                         getCommntList(1);
@@ -197,12 +199,14 @@ public class ActCommentList extends BaseActivity  {
         xRecyclerView.addOnScrollListener(new EndlessRecyclerOnScrollListener(linearnLayoutManager) {
             @Override
             public void onLoadMore(int currentPages) {
+
                 mHandler.postDelayed(new Runnable() {
                     public void run() {
 
                         if (maxPage == currentPage) {
                             Toast.makeText(ActCommentList.this, "没有更多数据了", Toast.LENGTH_SHORT).show();
                             // 更新完后调用该方法结束刷新
+//                            headerViewRecyclerAdapter.setLoadMordFinshed();
                             return;
                         }
                         isRefleshLoadMore = true;
@@ -362,6 +366,7 @@ public class ActCommentList extends BaseActivity  {
                 .from(ActCommentList.this)
                 .inflate(R.layout.view_load_more, xRecyclerView, false);
         headerViewRecyclerAdapter.addFooterView(loadMoreView);
+
     }
 
 

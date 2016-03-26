@@ -78,6 +78,13 @@ public class HeaderViewRecyclerAdapter extends RecyclerView.Adapter<RecyclerView
     public void addFooterView(View view) {
         mFooterViews.add(view);
     }
+    public void setLoadMordFinshed(){
+        if (mFooterViews.size()>0){
+            mFooterViews.clear();
+            mWrappedAdapter.notifyDataSetChanged();
+        }
+
+    }
 
     @Override
     public int getItemCount() {

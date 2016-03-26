@@ -41,6 +41,7 @@ public class BaseDialogCumstorTip {
         this.mDialogListener = dialogListener;
         final CustomerDialog dialog = new CustomerDialog(context, 250, 150, R.layout.base_twobtn_customer_tip_dialog, R.style.Theme_dialog);
         dialog.setCanceledOnTouchOutside(false);
+        dialog.setCancelable(false);
         dialog.show();
         AppCompatTextView txt_title = (AppCompatTextView) dialog.findViewById(R.id.txt_title);
         AppCompatTextView txt_message = (AppCompatTextView) dialog.findViewById(R.id.txt_message);

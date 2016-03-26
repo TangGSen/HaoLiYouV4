@@ -11,6 +11,7 @@ import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatRadioButton;
 import android.support.v7.widget.AppCompatTextView;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.GestureDetector;
@@ -46,7 +47,6 @@ import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.Callback;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -68,11 +68,13 @@ import okhttp3.Response;
 public class ActExamTest extends BaseActivity implements GestureDetector.OnGestureListener {
 
     private static final int SUBMIT_ANSWER_DATA = 2;
-    private String examId;
+    private static final int SHOW_DATA_LEFTBTN_CLICK = 5;
+    private static final int SHOW_DATA_RIGTHBTN_CLICK = 6;
     private static final int GETDATA_ERROR = 0;
     private static final int SHOW_DATA = 1;
     private static final int SUBMIT_ANSER_DEAL = 3;
     private static final int SUBMIT_ANSER_ERROR = 4;
+    private String examId;
     private GestureDetector detector;
     @Bind(R.id.testing_tv_theme)
     AppCompatTextView testing_tv_theme;
@@ -143,11 +145,20 @@ public class ActExamTest extends BaseActivity implements GestureDetector.OnGestu
                         showAnserSecess();
 
                     } else {
+                        setSubmitTestBtn(true);
                         Toast.makeText(ActExamTest.this, "提交失败,请重新交卷", Toast.LENGTH_SHORT).show();
                     }
                     break;
                 case 4:
+                    setSubmitTestBtn(true);
                     Toast.makeText(ActExamTest.this, "提交失败,请重新交卷", Toast.LENGTH_SHORT).show();
+                    break;
+                case 5:
+                    showPreQuestion();
+
+                    break;
+                case 6:
+                    showNextQuestion();
                     break;
             }
             return false;
@@ -166,7 +177,7 @@ public class ActExamTest extends BaseActivity implements GestureDetector.OnGestu
             public void onRigthButtonClick(CustomerDialog dialog) {
 
             }
-        },240,150,ActExamTest.this,"提交成功","待考试成绩公布后，您可去PC端查看!","确定",true,true);
+        }, 240, 150, ActExamTest.this, "提交成功", "待考试成绩公布后，您可去PC端查看!", "确定", true, true);
 
     }
 
@@ -258,6 +269,11 @@ public class ActExamTest extends BaseActivity implements GestureDetector.OnGestu
 
                     }
                 });
+    }
+
+    //防止重提交，直到出错为止
+    public void setSubmitTestBtn(boolean isCan) {
+        image_submit_result.setEnabled(isCan);
     }
 
     // 显示试题
@@ -451,6 +467,9 @@ public class ActExamTest extends BaseActivity implements GestureDetector.OnGestu
                     StringBuffer sb = new StringBuffer();
                     for (int i = 0; i < optionCount; i++) {
                         String answer = editAnswer[i];
+                        if (TextUtils.isEmpty(answer)) {
+                            answer = " ";
+                        }
                         if (optionCount <= 1 || i == optionCount - 1) {
                             sb.append(answer);
                         } else {
@@ -591,20 +610,7 @@ public class ActExamTest extends BaseActivity implements GestureDetector.OnGestu
         }
     }
 
-    public abstract class NoDoubleClickListener implements View.OnClickListener {
 
-        public static final int MIN_CLICK_DELAY_TIME = 1000;
-        private long lastClickTime = 0;
-
-        @Override
-        public void onClick(View v) {
-            long currentTime = Calendar.getInstance().getTimeInMillis();
-            if (currentTime - lastClickTime > MIN_CLICK_DELAY_TIME) {
-                lastClickTime = currentTime;
-//                onNoDoubleClick(v);
-            }
-        }
-    }
 
     private void showPreQuestion() {
 
@@ -741,14 +747,34 @@ public class ActExamTest extends BaseActivity implements GestureDetector.OnGestu
 
     //点击事件
 
+    /**
+     * 当用户快速点击 上一题，下一题的时候，很容易界面上很乱，所以要控制时间
+     */
+
+
+    boolean isLeft = false;
+
     @OnClick(R.id.testing_image_pre)
     public void showPre() {
-        showPreQuestion();
+        mHandler.removeMessages(SHOW_DATA_RIGTHBTN_CLICK);
+        //绑定一个msg，内容为接下来需要的button的ID，
+        Message msg = Message.obtain();
+        msg.what = SHOW_DATA_LEFTBTN_CLICK;
+        //发送消息间隔1秒
+        mHandler.sendMessageDelayed(msg, 200);
+
     }
+
 
     @OnClick(R.id.testing_image_next)
     public void showNext() {
-        showNextQuestion();
+        mHandler.removeMessages(SHOW_DATA_LEFTBTN_CLICK);
+        //绑定一个msg，内容为接下来需要的button的ID，
+        Message msg = Message.obtain();
+        msg.what = SHOW_DATA_RIGTHBTN_CLICK;
+        //发送消息间隔1秒
+        mHandler.sendMessageDelayed(msg, 200);
+
     }
 
     @OnClick(R.id.testing_imgbtn_close)
@@ -759,6 +785,7 @@ public class ActExamTest extends BaseActivity implements GestureDetector.OnGestu
 
     @OnClick(R.id.image_submit_result)
     public void sumbitExam() {
+        setSubmitTestBtn(false);
         submitAnswers();
 
     }
@@ -793,6 +820,7 @@ public class ActExamTest extends BaseActivity implements GestureDetector.OnGestu
             @Override
             public void onRigthButtonClick(CustomerDialog dialog) {
                 dialog.dismiss();
+                settingBtnAble(true);
             }
         }, ActExamTest.this, "退出提示", tipString, "退出", "继续做题", true, true);
 
@@ -826,6 +854,7 @@ public class ActExamTest extends BaseActivity implements GestureDetector.OnGestu
                 public void onRigthButtonClick(CustomerDialog dialog) {
                     if (dialog != null && dialog.isShowing())
                         dialog.dismiss();
+                    setSubmitTestBtn(true);
                 }
             }, ActExamTest.this, "交卷提示", tipString, "提交", "继续做题", true, true);
         } else {
@@ -868,6 +897,7 @@ public class ActExamTest extends BaseActivity implements GestureDetector.OnGestu
     public void submitUserAnswer(String answer) {
         if (!NetUtil.isNetworkConnected(this)) {
             DialogUtils.closeDialog();
+            setSubmitTestBtn(true);
             Toast.makeText(ActExamTest.this, "网络未连接", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -889,7 +919,7 @@ public class ActExamTest extends BaseActivity implements GestureDetector.OnGestu
                     public Boolean parseNetworkResponse(Response response) throws Exception {
                         String string = response.body().string();
                         Boolean success = JSON.parseObject(string).getBoolean("success");
-                        if (success!=null && success){
+                        if (success != null && success) {
                             return true;
                         }
                         return false;
