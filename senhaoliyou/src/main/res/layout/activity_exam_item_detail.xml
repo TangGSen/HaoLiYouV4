@@ -1,0 +1,178 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/exam_detail_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:background="@color/all_action_bar">
+
+      <!--  <RelativeLayout
+            android:layout_width="@dimen/common_48dp"
+            android:layout_height="match_parent">
+
+        </RelativeLayout>-->
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/exam_imgbtn_close"
+            android:layout_width="@dimen/common_48dp"
+            android:layout_height="@dimen/common_48dp"
+            android:layout_gravity="left|center"
+            android:drawableLeft="@drawable/btn_back"
+            android:gravity="center_vertical" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/tv_head_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:ellipsize="middle"
+            android:text="考试详情"
+            android:textColor="@color/font_h1"
+            android:textSize="@dimen/tab_forn_size_18sp" />
+    </android.support.v7.widget.Toolbar>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/under_bar_line" />
+    <!--考虑小屏手机-->
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/common_16dp"
+        android:layout_marginRight="@dimen/common_16dp"
+        android:layout_marginTop="@dimen/common_8dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/tv_exam_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/common_16dp"
+                android:layout_marginRight="@dimen/common_16dp"
+                android:layout_marginTop="@dimen/common_8dp"
+                android:gravity="center"
+                android:text="标题"
+                android:textColor="@color/font_h1"
+                android:textSize="@dimen/fragment_font_16sp" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/tv_exam_time"
+                style="@style/TextViewStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/common_8dp"
+                android:text="时间" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/common_8dp"
+                android:orientation="horizontal">
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/tv_exam_type_detail"
+                    style="@style/TextViewStyle"
+                    android:layout_width="@dimen/common_0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="状态" />
+
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/tv_examtime"
+                    style="@style/TextViewStyle"
+                    android:layout_width="@dimen/common_0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="时长" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/common_8dp"
+                android:orientation="horizontal">
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/tv_passs_score"
+                    style="@style/TextViewStyle"
+                    android:layout_width="@dimen/common_0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/common_0dp"
+                    android:layout_weight="1"
+                    android:text="通过分数" />
+
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/tv_has_enter_detail"
+                    style="@style/TextViewStyle"
+                    android:layout_width="@dimen/common_0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="已考次数" />
+
+
+            </LinearLayout>
+
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/tv_exam_class"
+                style="@style/TextViewStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/common_8dp"
+                android:text="类别" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/tv_belong_class"
+                style="@style/TextViewStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/common_8dp"
+                android:text="所属培训班" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/tv_main_depman"
+                style="@style/TextViewStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/common_8dp"
+                android:text="主办单位" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/tv_exam_introduce"
+                style="@style/TextViewStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/common_8dp"
+                android:text="考试说明" />
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/btn_enter_exam"
+                android:layout_width="150dp"
+                android:layout_height="@dimen/common_48dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/common_48dp"
+                android:background="@drawable/seletor_ifcan_exam"
+                android:text="开始考试"
+                android:textColor="@color/tab_bgcolor" />
+
+        </LinearLayout>
+
+
+    </android.support.v4.widget.NestedScrollView>
+
+
+</LinearLayout>

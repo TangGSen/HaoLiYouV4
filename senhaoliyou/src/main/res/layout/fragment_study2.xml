@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/study_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:background="@color/all_action_bar">
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/btn_down_manager"
+            android:layout_width="@dimen/common_48dp"
+            android:layout_height="@dimen/common_48dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/common_8dp"
+            android:padding="@dimen/common_12dp"
+            android:src="@mipmap/study_download_manager"
+             />
+
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/tv_lesson_theme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="我的学习"
+            android:textColor="@color/font_h1"
+            android:textSize="@dimen/tab_forn_size_18sp" />
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/btn_exit_app"
+            android:layout_width="@dimen/common_48dp"
+            android:layout_height="@dimen/common_48dp"
+            android:layout_gravity="right"
+            android:layout_marginRight="@dimen/common_8dp"
+            android:padding="@dimen/common_12dp"
+            android:src="@mipmap/study_exit_app"
+            android:gravity="center" />
+
+    </android.support.v7.widget.Toolbar>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_gravity="bottom"
+        android:background="@color/under_bar_line" />
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh_widget"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+    <android.support.v7.widget.RecyclerView
+            android:id="@+id/study_lesson_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/common_8dp"
+            android:overScrollMode="never"
+            android:scrollbars="none" />
+        <FrameLayout
+            android:id="@+id/tip_null_data"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="请到资源库中添加课程"
+                android:textColor="@color/font_h2"
+                android:textSize="@dimen/fragment_font_16sp" />
+        </FrameLayout>
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+
+</LinearLayout>

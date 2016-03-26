@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#4CAF50</color>
+    <color name="colorPrimaryDark">#388E3C</color>
+    <color name="end">#8cb63d</color>
+    <color name="colorAccent">#F1F8E9</color>
+    <!--actionbar -->
+    <color name="actionBar">#4CAF50</color>
+    <color name="textActionBarTile">#F1F8E9</color>
+
+
+    <color name="primary">#8BC34A</color>
+    <color name="primary_light">#DCEDC8</color>
+    <color name="accent">#FF9800</color>
+    <color name="primary_text">#616161</color>
+    <color name="bg_found_detial">#80616161</color>
+    <color name="secondary_text">#727272</color>
+    <color name="divider">#B6B6B6</color>
+    <color name="tab_bgcolor">#FFFFFF</color>
+
+    <color name="common_grey_line_color">#dfdfdf</color>
+    <color name="common_orange_color">#FE812C</color>
+    <color name="common_orange_pressed_color">#E96F1B</color>
+    <color name="half_transparent">#00FFFFFF</color>
+    <color name="personal_toobar_bg">#80388E3C</color>
+
+    <!--主题颜色-->
+    <color name="theme_color">#DF7480</color>
+    <color name="font_h1">#212121</color>
+    <color name="font_h2">#727272</color>
+    <color name="resouce_search">#D4D5D9</color>
+
+    <color name="activity_lesson_detail_head">#5480F0</color>
+
+    <color name="view_bar_orgen">#EAC8A9</color>
+    <color name="view_resource_color">#83C0E8</color>
+
+    <color name="user_common_name">#5480F0</color>
+    <color name="view_bar_blue">#5480F0</color>
+    <color name="all_action_bar">#FFFFFF</color>
+    <color name="under_bar_line">#DEDFE0</color>
+
+    <color name="act_home_study">#d37e7e</color>
+    <color name="act_home_test">#7b87d1</color>
+    <color name="act_home_resouce">#dab055</color>
+    <color name="act_home_coach">#73c386</color>
+    <color name="act_login_et">#595656</color>
+
+
+
+
+</resources>

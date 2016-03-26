@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/login_background"
+    tools:context="com.sen.haoliyou.activity.ActLogin">
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/login_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        android:background="@mipmap/login_logo" />
+
+
+    <RelativeLayout
+        android:id="@+id/layout_username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/login_logo"
+        android:layout_marginLeft="@dimen/common_38dp"
+        android:layout_marginRight="@dimen/common_38dp"
+        android:layout_marginTop="?actionBarSize">
+
+        <RelativeLayout
+            android:id="@+id/icon_login_username"
+            android:layout_width="@dimen/common_38dp"
+            android:layout_height="@dimen/common_38dp"
+            android:background="@drawable/bg_login_imgicon">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:layout_width="@dimen/common_24dp"
+                android:layout_height="@dimen/common_24dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/common_8dp"
+                android:background="@mipmap/login_username" />
+        </RelativeLayout>
+
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/et_username"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_38dp"
+            android:layout_toRightOf="@id/icon_login_username"
+            android:background="@drawable/bg_login_edit"
+            android:paddingLeft="@dimen/common_8dp"
+            android:textSize="@dimen/frist_forn_size_16sp"
+            android:hint="用户名"
+            android:maxLines="1" />
+
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/layout_passwrod"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/layout_username"
+        android:layout_marginLeft="@dimen/common_38dp"
+        android:layout_marginRight="@dimen/common_38dp"
+        android:layout_marginTop="@dimen/common_8dp">
+
+        <RelativeLayout
+            android:id="@+id/icon_login_password"
+            android:layout_width="@dimen/common_38dp"
+            android:layout_height="@dimen/common_38dp"
+            android:background="@drawable/bg_login_imgicon">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:layout_width="@dimen/common_24dp"
+                android:layout_height="@dimen/common_24dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/common_8dp"
+                android:background="@mipmap/login_password" />
+        </RelativeLayout>
+
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/et_password"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_38dp"
+            android:layout_toRightOf="@id/icon_login_password"
+            android:background="@drawable/bg_login_edit"
+            android:textSize="@dimen/frist_forn_size_16sp"
+            android:paddingLeft="@dimen/common_8dp"
+            android:inputType="textPassword"
+            android:hint="密码"
+            android:maxLines="1" />
+
+
+    </RelativeLayout>
+
+
+
+
+    <android.support.v7.widget.AppCompatButton
+         android:id="@+id/btn_login"
+         android:layout_width="120dp"
+         android:layout_height="@dimen/common_48dp"
+         android:layout_below="@id/layout_passwrod"
+         android:layout_centerHorizontal="true"
+         android:layout_marginTop="@dimen/common_8dp"
+         android:background="@drawable/bg_login_btn"
+         android:maxLines="1"
+         android:text="登录"
+         android:textColor="@color/tab_bgcolor"
+         android:textSize="@dimen/frist_forn_size_16sp" />
+
+
+</RelativeLayout>

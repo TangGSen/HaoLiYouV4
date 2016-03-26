@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:background="@color/all_action_bar">
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/testing_tv_theme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|center_vertical"
+            android:layout_marginLeft="@dimen/common_16dp"
+            android:maxEms="10"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:textColor="@color/font_h1"
+            android:text="测试题"
+            android:textSize="@dimen/tab_forn_size_18sp" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/testing_imgbtn_close"
+            android:layout_width="@dimen/common_48dp"
+            android:layout_height="@dimen/common_48dp"
+            android:drawableRight="@drawable/close_exam"
+            android:layout_marginRight="@dimen/common_8dp"
+            android:paddingRight="@dimen/common_16dp"
+            android:layout_gravity="right|center_vertical"
+            android:gravity="center_vertical"
+            />
+
+
+    </android.support.v7.widget.Toolbar>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/under_bar_line" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+        <ViewFlipper
+            android:id="@+id/exam_viewflipper"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+</LinearLayout>
+
+
+
+    <LinearLayout
+        android:id="@+id/bottom_tool"
+        android:layout_width="fill_parent"
+        android:layout_height="?actionBarSize"
+        android:background="@color/theme_color"
+        android:gravity="center_vertical">
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/testing_image_pre"
+            android:layout_width="@dimen/common_0dp"
+            android:layout_height="wrap_content"
+            android:drawableTop="@mipmap/exam_pre_arrow"
+            android:layout_weight="1.0"
+            android:textSize="@dimen/common_14sp"
+            android:gravity="center"
+            android:textColor="@color/tab_bgcolor"
+            android:text="上一题" />
+
+
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/image_submit_result"
+            android:layout_width="@dimen/common_0dp"
+            android:layout_height="wrap_content"
+            android:drawableTop="@mipmap/submit_exam"
+            android:layout_weight="1.0"
+            android:gravity="center"
+            android:textSize="@dimen/common_14sp"
+            android:textColor="@color/tab_bgcolor"
+            android:text="交卷"
+            />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/testing_tv_num"
+            android:layout_width="@dimen/common_0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:gravity="center"
+            android:text="0/0"
+            android:textColor="@color/tab_bgcolor"
+            android:textSize="18.0sp" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/testing_image_next"
+            android:layout_width="@dimen/common_0dp"
+            android:layout_height="wrap_content"
+            android:drawableTop="@mipmap/exam_next_arrow"
+            android:layout_weight="1.0"
+            android:gravity="center"
+            android:textSize="@dimen/common_14sp"
+            android:textColor="@color/tab_bgcolor"
+            android:text="下一题"
+            />
+    </LinearLayout>
+
+</LinearLayout>

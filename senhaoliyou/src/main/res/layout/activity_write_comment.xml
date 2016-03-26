@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:background="@color/all_action_bar">
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/write_back"
+            android:layout_width="@dimen/common_48dp"
+            android:paddingLeft="@dimen/common_8dp"
+            android:layout_height="@dimen/common_48dp"
+            android:drawableLeft="@drawable/close_exam"
+            android:layout_gravity="left|center_vertical"
+            android:gravity="center_vertical"
+             />
+
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/tv_head_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:maxLines="1"
+            android:text="写评论"
+            android:textColor="@color/font_h1"
+            android:textSize="@dimen/common_18sp" />
+
+
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/btn_submit"
+            android:layout_width="@dimen/common_48dp"
+            android:layout_height="@dimen/common_48dp"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginRight="@dimen/common_8dp"
+            android:paddingRight="@dimen/common_14dp"
+            android:drawableRight="@drawable/btn_submit_commit"
+            android:gravity="center_vertical"
+            />
+
+    </android.support.v7.widget.Toolbar>
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/et_content"
+        android:paddingLeft="@dimen/common_8dp"
+        android:paddingTop="@dimen/common_4dp"
+        android:layout_width="match_parent"
+        android:layout_marginRight="@dimen/common_8dp"
+        android:layout_marginLeft="@dimen/common_8dp"
+        android:layout_height="180dp"
+        android:background="@drawable/commnet_editext_bg"
+        android:gravity="left"
+        android:textSize="@dimen/fragment_font_16sp"
+        android:hint="评论内容" />
+
+</LinearLayout>

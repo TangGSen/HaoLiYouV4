@@ -1,0 +1,57 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+
+    </style>
+    <style name="AppTheme.Base" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="colorPrimary">@color/theme_color</item>
+        <item name="colorPrimaryDark">@color/theme_color</item>
+        <item name="colorAccent">@color/theme_color</item>
+    </style>
+
+    <style name="ActivityTheme.Base" parent="AppTheme.Base">
+
+        <item name="colorAccent">@color/theme_color</item>
+
+    </style>
+    <style name="ActLoginTheme" parent="AppTheme.Base">
+
+        <item name="colorAccent">@color/act_login_et</item>
+
+    </style>
+
+    <style name="MyCustomerToolbar" parent="Theme.AppCompat.Light">
+        <item name="android:textColorPrimary">@color/textActionBarTile</item>
+    </style>
+
+
+    <!--MainActivity Tablayout style-->
+    <style name="TabLayout" parent="Widget.Design.TabLayout">
+        <item name="tabIndicatorColor">?attr/colorAccent</item>
+        <item name="tabIndicatorHeight">0dp</item>
+        <item name="tabPaddingStart">12dp</item>
+        <item name="tabPaddingEnd">12dp</item>
+        <item name="tabBackground">@color/half_transparent</item>
+        <item name="tabSelectedTextColor">?android:textColorPrimary</item>
+    </style>
+
+    <!-- customer dialog style -->
+    <style name="Theme_dialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+
+    <!-- commom TextView style -->
+    <style name="TextViewStyle">
+        <item name="android:textColor">@color/font_h2</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:textSize">@dimen/fragment_font_16sp</item>
+    </style>
+
+
+
+
+</resources>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="?actionBarSize"
+    android:orientation="horizontal">
+
+    <View
+        android:id="@+id/view_bar"
+        android:layout_width="2dp"
+        android:layout_height="18dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="@dimen/common_8dp"
+        android:background="@color/view_bar_orgen" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/item_catalog_name"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="?actionBarSize"
+        android:layout_centerVertical="true"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="@dimen/common_16dp"
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:textColor="@color/font_h1"
+        android:textSize="@dimen/fragment_font_16sp" />
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/someone_item_imv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginRight="@dimen/common_16dp"
+        android:src="@drawable/right_go" />
+
+</LinearLayout>

@@ -1,0 +1,64 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:background="@color/all_action_bar">
+
+
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/common_back"
+            android:layout_width="@dimen/common_48dp"
+            android:layout_height="@dimen/common_48dp"
+            android:layout_gravity="left|center"
+            android:drawableLeft="@drawable/btn_back"
+            android:gravity="center_vertical" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/tv_head_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="评论"
+            android:textColor="@color/font_h1"
+            android:textSize="@dimen/tab_forn_size_18sp" />
+
+
+        <android.support.v7.widget.AppCompatImageButton
+            android:id="@+id/btn_write_common"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_centerVertical="true"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginRight="@dimen/common_16dp"
+            android:background="@mipmap/write_comment"
+            android:gravity="center_vertical" />
+
+    </android.support.v7.widget.Toolbar>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/under_bar_line" />
+
+    <com.cjj.MaterialRefreshLayout
+        android:id="@+id/refresh_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:progress_colors="@array/my_material_colors">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/listview_comment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none" />
+    </com.cjj.MaterialRefreshLayout>
+
+
+</LinearLayout>

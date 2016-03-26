@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="56dp"
+    android:orientation="horizontal" >
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/text_section_name"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_margin="5dp"
+        android:layout_weight="1"
+        android:paddingLeft="@dimen/common_16dp"
+        android:gravity="center_vertical"
+        android:textColor="@color/font_h2"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:padding="5dp"
+        android:text="英文"
+        android:textSize="14sp" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/btn_down"
+        android:layout_width="@dimen/common_48dp"
+        android:layout_height="@dimen/common_48dp"
+        android:layout_gravity="center_vertical"
+        android:paddingLeft="@dimen/common_16dp"
+        android:drawableLeft="@mipmap/download_manager"
+         />
+
+</LinearLayout>

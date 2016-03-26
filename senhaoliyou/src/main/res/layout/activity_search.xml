@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:background="@color/all_action_bar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/btn_back_search"
+                android:layout_width="@dimen/common_48dp"
+                android:drawableLeft="@drawable/btn_back"
+                android:layout_height="match_parent" />
+
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/et_search"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/common_38dp"
+                android:layout_weight="1"
+                android:background="@drawable/toolbar_serach_bg_red"
+                android:drawablePadding="@dimen/frgment_login_2dp"
+                android:hint="@string/resouce_str_serach"
+                android:paddingLeft="@dimen/frgment_login_8dp"
+                android:textColor="@color/secondary_text"
+                android:textSize="@dimen/fragment_font_14sp" />
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/bt_search_click"
+                android:layout_width="?actionBarSize"
+                android:layout_height="@dimen/common_38dp"
+                android:layout_marginRight="@dimen/common_16dp"
+                android:background="@drawable/btn_toolbar_serach_bg"
+                android:gravity="center"
+                android:text="搜索"
+                android:textColor="@color/tab_bgcolor" />
+
+        </LinearLayout>
+
+
+    </android.support.v7.widget.Toolbar>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_gravity="bottom"
+        android:background="@color/under_bar_line" />
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycle_search"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:overScrollMode="never"
+         />
+
+
+</LinearLayout>

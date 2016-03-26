@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:background="@color/all_action_bar">
+
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/btn_resouce_back"
+            android:layout_width="@dimen/common_48dp"
+            android:layout_height="@dimen/common_48dp"
+            android:layout_gravity="left|center"
+            android:drawableLeft="@drawable/btn_back"
+            android:gravity="center_vertical" />
+
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/tv_head_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:ellipsize="end"
+            android:maxEms="12"
+            android:maxLines="1"
+            android:textColor="@color/font_h1"
+            android:textSize="@dimen/tab_forn_size_18sp" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/btn_lesson_collection"
+            android:layout_width="@dimen/common_48dp"
+            android:layout_height="@dimen/common_48dp"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginRight="@dimen/common_8dp"
+            android:drawableRight="@drawable/seletor_lesson_isseleted"
+            android:paddingRight="@dimen/common_16dp" />
+
+    </android.support.v7.widget.Toolbar>
+
+
+    <!-- 播放未开始时，显示图片和播放按钮 -->
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:overScrollMode="never">
+
+        <LinearLayout
+            android:id="@+id/scrllor_linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <RelativeLayout
+                android:id="@+id/layout_start_video"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:background="@mipmap/bg_study_video"
+                android:visibility="visible">
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/btn_startPlayer"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_centerInParent="true"
+                    android:background="@mipmap/enter_study" />
+            </RelativeLayout>
+
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/common_8dp"
+                android:drawableLeft="@drawable/section_line_blue"
+                android:gravity="center_vertical"
+                android:text="@string/str_lesson_list"
+                android:textColor="@color/font_h1"
+                android:textSize="16sp" />
+
+
+            <View
+                android:id="@+id/view_line"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/under_bar_line"
+                android:visibility="gone" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/listview_lesson"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:scrollbars="none" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/under_bar_line" />
+            <!-- 用户评论 -->
+
+
+            <RelativeLayout
+                android:id="@+id/layout_user_comment"
+                android:layout_width="match_parent"
+                android:layout_height="48dp">
+
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/tv_user_comment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/common_8dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/activity_lesson_detail_comment"
+                    android:textColor="@color/font_h1"
+                    android:textSize="16sp" />
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:layout_toRightOf="@id/tv_user_comment"
+                    android:id="@+id/tv_comment_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/common_8dp"
+                    android:gravity="center_vertical"
+                    android:maxLines="1"
+                    android:text="@string/activity_lesson_detail_comment"
+                    android:textColor="@color/font_h2"
+                    android:textSize="@dimen/common_14sp" />
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:drawableRight="@drawable/right_go"
+                    android:textSize="@dimen/fragment_font_14sp" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/under_bar_line" />
+
+            <!-- 课程简介 -->
+
+
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/common_8dp"
+                android:drawableLeft="@drawable/section_line_blue"
+                android:gravity="center_vertical"
+                android:text="@string/activity_lesson_fride"
+                android:textColor="@color/font_h1"
+                android:textSize="16sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/under_bar_line" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/tv_lesson_remark"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="5dp"
+                android:textSize="14sp" />
+
+
+        </LinearLayout>
+
+
+    </android.support.v4.widget.NestedScrollView>
+
+</LinearLayout>
