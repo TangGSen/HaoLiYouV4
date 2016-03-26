@@ -110,8 +110,7 @@ public class ActCommentList extends BaseActivity  {
                     commonList.clear();
                     //创建并设置Adapter
                     if (adapter == null) {
-                        adapter = new CommentListAdapter(ActCommentList.this, allCommonList);
-                        xRecyclerView.setAdapter(adapter);
+
                         Log.e("sen", "刷新222444");
                     } else {
                         Log.e("sen", "刷新222");
@@ -168,6 +167,7 @@ public class ActCommentList extends BaseActivity  {
     }
 
     private void settingRecyleView() {
+        allCommonList = new ArrayList<>();
         LinearLayoutManager linearnLayoutManager = new LinearLayoutManager(this);
         linearnLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         xRecyclerView.setLayoutManager(linearnLayoutManager);
@@ -253,7 +253,7 @@ public class ActCommentList extends BaseActivity  {
     @Override
     protected void initData(Bundle savedInstanceState) {
         super.initData(savedInstanceState);
-        allCommonList = new ArrayList<>();
+
         if (courseId != null && NetUtil.isNetworkConnected(this)) {
             getCommntList(1);
         }
