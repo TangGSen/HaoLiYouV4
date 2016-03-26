@@ -16,7 +16,7 @@ import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.sen.haoliyou.R;
-import com.sen.haoliyou.activity.study.ActStudyDetail;
+import com.sen.haoliyou.activity.study.ActResoucesStudyDetail;
 import com.sen.haoliyou.adapter.StudyRecyclerAdapter;
 import com.sen.haoliyou.base.BaseActivity;
 import com.sen.haoliyou.mode.LessonItemBean;
@@ -101,7 +101,7 @@ public class ActSearchLesson extends BaseActivity {
             adapter.setOnItemClickListener(new StudyRecyclerAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(View view, int position, LessonItemBean childItemBean) {
-                    Intent intent = new Intent(ActSearchLesson.this, ActStudyDetail.class);
+                    Intent intent = new Intent(ActSearchLesson.this, ActResoucesStudyDetail.class);
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("itemLessonBean", childItemBean);
                     bundle.putInt("itemPosition", position);

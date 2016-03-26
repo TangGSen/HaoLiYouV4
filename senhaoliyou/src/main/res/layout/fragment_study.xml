@@ -49,19 +49,7 @@
         android:layout_height="1dp"
         android:layout_gravity="bottom"
         android:background="@color/under_bar_line" />
-    <FrameLayout
-        android:id="@+id/tip_null_data"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <android.support.v7.widget.AppCompatTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:text="请到资源库中添加课程"
-            android:textColor="@color/font_h2"
-            android:textSize="@dimen/fragment_font_16sp" />
-    </FrameLayout>
+
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipe_refresh_widget"
