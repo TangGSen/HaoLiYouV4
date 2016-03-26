@@ -3,11 +3,18 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/HaoLiYouV4.iml" filepath="$PROJECT_DIR$/HaoLiYouV4.iml" />
+      <module fileurl="file://$PROJECT_DIR$/HaoLiYouV402.iml" filepath="$PROJECT_DIR$/HaoLiYouV402.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/app2/app2.iml" filepath="$PROJECT_DIR$/app2/app2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app2/app2.iml" filepath="$PROJECT_DIR$/app2/app2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/downloadlib/downloadlib.iml" filepath="$PROJECT_DIR$/downloadlib/downloadlib.iml" />
       <module fileurl="file://$PROJECT_DIR$/downloadlib/downloadlib.iml" filepath="$PROJECT_DIR$/downloadlib/downloadlib.iml" />
       <module fileurl="file://$PROJECT_DIR$/senhaoliyou/senhaoliyou.iml" filepath="$PROJECT_DIR$/senhaoliyou/senhaoliyou.iml" />
+      <module fileurl="file://$PROJECT_DIR$/senhaoliyou/senhaoliyou.iml" filepath="$PROJECT_DIR$/senhaoliyou/senhaoliyou.iml" />
       <module fileurl="file://$PROJECT_DIR$/senlib/senlib.iml" filepath="$PROJECT_DIR$/senlib/senlib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/senlib/senlib.iml" filepath="$PROJECT_DIR$/senlib/senlib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/videolib/videolib.iml" filepath="$PROJECT_DIR$/videolib/videolib.iml" />
       <module fileurl="file://$PROJECT_DIR$/videolib/videolib.iml" filepath="$PROJECT_DIR$/videolib/videolib.iml" />
     </modules>
   </component>

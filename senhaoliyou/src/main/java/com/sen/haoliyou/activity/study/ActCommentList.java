@@ -115,7 +115,7 @@ public class ActCommentList extends BaseActivity  {
                         Log.e("sen", "刷新222444");
                     } else {
                         Log.e("sen", "刷新222");
-                        adapter.notifyDataSetChanged();
+                        headerViewRecyclerAdapter.notifyDataSetChanged();
                     }
 
 
@@ -177,6 +177,7 @@ public class ActCommentList extends BaseActivity  {
         xRecyclerView.addItemDecoration(new RecyleViewItemDecoration(this, R.drawable.shape_recycle_item_decoration));
         adapter = new CommentListAdapter(ActCommentList.this, allCommonList);
         headerViewRecyclerAdapter = new HeaderViewRecyclerAdapter(adapter);
+        xRecyclerView.setAdapter(headerViewRecyclerAdapter);
         createLoadMoreView();
         swipe_refresh_widget.setColorSchemeResources(R.color.theme_color,R.color.theme_color);
         swipe_refresh_widget.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
