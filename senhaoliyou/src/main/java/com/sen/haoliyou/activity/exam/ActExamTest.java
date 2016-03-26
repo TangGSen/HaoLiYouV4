@@ -950,8 +950,8 @@ public class ActExamTest extends BaseActivity implements GestureDetector.OnGestu
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
         EventBus.getDefault().unregister(this);
         mHandler.removeCallbacksAndMessages(null);
+        super.onDestroy();
     }
 }

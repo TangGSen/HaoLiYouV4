@@ -185,8 +185,7 @@ public class ActCommentList extends BaseActivity  {
             public void onRefresh() {
                 mHandler.postDelayed(new Runnable() {
                     public void run() {
-//                        headerViewRecyclerAdapter.setLoadMordFinshed();
-//                        createLoadMoreView();
+                        currentPage =1;
                         isRefleshLoadMore = true;
                         allCommonList.clear();
                         getCommntList(1);
@@ -218,38 +217,6 @@ public class ActCommentList extends BaseActivity  {
 
             }
         });
-
-
-
-
-
-//        refresh_layout.setMaterialRefreshListener(new MaterialRefreshListener() {
-//            @Override
-//            public void onRefresh(MaterialRefreshLayout materialRefreshLayout) {
-//
-//            }
-//
-//            @Override
-//            public void onRefreshLoadMore(MaterialRefreshLayout materialRefreshLayout) {
-//                super.onRefreshLoadMore(materialRefreshLayout);
-//                mHandler.postDelayed(new Runnable() {
-//                    public void run() {
-//
-//                        if (maxPage == currentPage) {
-//                            Toast.makeText(ActCommentList.this, "没有更多数据了", Toast.LENGTH_SHORT).show();
-//                            refresh_layout.finishRefreshLoadMore();
-//                            return;
-//                        }
-//                        isRefleshLoadMore = true;
-//                        currentPage++;
-//                        getCommntList(currentPage);
-//                        isRefleshLoadMore = false;
-//                        refresh_layout.finishRefreshLoadMore();
-//                    }
-//                }, 1000);
-//            }
-//        });
-
 
     }
 
