@@ -17,7 +17,7 @@ import android.widget.Toast;
 import com.sen.haoliyou.R;
 import com.sen.haoliyou.base.BaseActivity;
 import com.sen.haoliyou.fragment.FragmentRepository;
-import com.sen.haoliyou.fragment.FragmentStudy2;
+import com.sen.haoliyou.fragment.FragmentStudy;
 import com.sen.haoliyou.fragment.FragmentTest;
 import com.sen.haoliyou.tools.ResourcesUtils;
 
@@ -41,7 +41,7 @@ public class MainActivity extends BaseActivity {
 
     FragmentManager mFragmentManager;
 
-    private FragmentStudy2 mFragmentStudy;
+    private FragmentStudy mFragmentStudy;
     private FragmentTest mFragmentTest;
     private FragmentRepository mFragmentRepository;
 
@@ -74,7 +74,7 @@ public class MainActivity extends BaseActivity {
             //取出上一次保存的数据
             currentFragPosition = savedInstanceState.getInt(FRAG_POSITION,0);
             Log.e("sen","恢复的状态"+currentFragPosition);
-            mFragmentStudy = (FragmentStudy2) mFragmentManager.findFragmentByTag(tabTiles[0]);
+            mFragmentStudy = (FragmentStudy) mFragmentManager.findFragmentByTag(tabTiles[0]);
             mFragmentTest = (FragmentTest) mFragmentManager.findFragmentByTag(tabTiles[1]);
             mFragmentRepository = (FragmentRepository) mFragmentManager.findFragmentByTag(tabTiles[2]);
         }
@@ -92,7 +92,7 @@ public class MainActivity extends BaseActivity {
             case 0:
                 if (mFragmentStudy == null) {
                     // 如果MessageFragment为空，则创建一个并添加到界面上
-                    mFragmentStudy = new FragmentStudy2();
+                    mFragmentStudy = new FragmentStudy();
                     transaction.add(R.id.home_layout_content, mFragmentStudy, tabTiles[position]);
                 } else {
                     // 如果不为空，则直接将它显示出来

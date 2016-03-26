@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,8 +15,6 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
-import com.cjj.MaterialRefreshLayout;
-import com.cjj.MaterialRefreshListener;
 import com.sen.haoliyou.R;
 import com.sen.haoliyou.activity.ActSearchLesson;
 import com.sen.haoliyou.adapter.LessonCatalogAdapter;
@@ -50,15 +49,15 @@ import okhttp3.Response;
 /**
  * Created by Administrator on 2016/3/10.
  */
-public class ActRepositoryDetail extends BaseActivity {
+public class ActRepositoryDetail extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener {
     private String catalogId;
 
     @Bind(R.id.resourse_detail_listview)
     RecyclerView resourse_detail_listview;
     StudyRecyclerAdapter studyRecyclerAdapter;
 
-    @Bind(R.id.resoucedetail_refresh_layout)
-    MaterialRefreshLayout resoucedetail_refresh_layout;
+    @Bind(R.id.resdetail_refreshlayout)
+    SwipeRefreshLayout swipe_refresh_widget;
 
     @Bind(R.id.bt_search)
     AppCompatTextView bt_search;
@@ -104,23 +103,7 @@ public class ActRepositoryDetail extends BaseActivity {
 //        添加分割线
         resourse_detail_listview.addItemDecoration(new RecyleViewItemDecoration(this, R.drawable.shape_recycle_item_decoration));
 
-        resoucedetail_refresh_layout.setLoadMore(false);
-        resoucedetail_refresh_layout.setMaterialRefreshListener(new MaterialRefreshListener() {
-            @Override
-            public void onRefresh(MaterialRefreshLayout materialRefreshLayout) {
-                mHandler.postDelayed(new Runnable() {
-                    public void run() {
-                        isReFlesh = true;
-                        allResourseKindBean.clear();
-                        allCourseList.clear();
-                        getResourseNet();
-                        resoucedetail_refresh_layout.finishRefresh();
-                        isReFlesh = false;
-                    }
-                }, 1000);
 
-            }
-        });
 
 
     }
@@ -329,4 +312,17 @@ public class ActRepositoryDetail extends BaseActivity {
 
     }
 
+    @Override
+    public void onRefresh() {
+        mHandler.postDelayed(new Runnable() {
+            public void run() {
+                isReFlesh = true;
+                allResourseKindBean.clear();
+                allCourseList.clear();
+                getResourseNet();
+                swipe_refresh_widget.setRefreshing(false);
+                isReFlesh = false;
+            }
+        }, 1000);
+    }
 }

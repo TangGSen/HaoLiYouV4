@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,8 +16,6 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
-import com.cjj.MaterialRefreshLayout;
-import com.cjj.MaterialRefreshListener;
 import com.sen.haoliyou.R;
 import com.sen.haoliyou.activity.ActSearchLesson;
 import com.sen.haoliyou.activity.study.ActRepositoryDetail;
@@ -50,14 +49,14 @@ import okhttp3.Response;
 /**
  * Created by Sen on 2016/3/3.
  */
-public class FragmentRepository extends BaseFragment {
+public class FragmentRepository extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener{
     private View rootView;
     @Bind(R.id.resourse_et_search)
     AppCompatTextView resourse_et_search;
     @Bind(R.id.resourse_listview)
     RecyclerView resourse_listview;
-    @Bind(R.id.resouce_refresh_layout)
-    MaterialRefreshLayout resouce_refresh_layout;
+    @Bind(R.id.resouce_swipe_refresh_widget)
+    SwipeRefreshLayout swipe_refresh_widget;
     private boolean isLoad = false;
     StudyRecyclerAdapter studyRecyclerAdapter;
 
@@ -204,22 +203,8 @@ public class FragmentRepository extends BaseFragment {
         resourse_listview.setHasFixedSize(true);
 //            添加分割线
         resourse_listview.addItemDecoration(new RecyleViewItemDecoration(getContext(), R.drawable.shape_recycle_item_decoration));
-        resouce_refresh_layout.setLoadMore(false);
-        resouce_refresh_layout.setMaterialRefreshListener(new MaterialRefreshListener() {
-            @Override
-            public void onRefresh(MaterialRefreshLayout materialRefreshLayout) {
-                mHandler.postDelayed(new Runnable() {
-                    public void run() {
-                        isReFlesh = true;
-                        allResourseKindBean.clear();
-                        allCourseList.clear();
-                        getResourseNet();
-                        resouce_refresh_layout.finishRefresh();
-                        isReFlesh = false;
-                    }
-                }, 1000);
-            }
-        });
+        swipe_refresh_widget.setColorSchemeResources(R.color.theme_color,R.color.theme_color);
+        swipe_refresh_widget.setOnRefreshListener(this);
     }
 
     public void onEvent(EventComentCountForResouce event) { //接收方法  在发关事件的线程接收
@@ -306,5 +291,20 @@ public class FragmentRepository extends BaseFragment {
     public void search() {
         Intent intent = new Intent(getActivity(), ActSearchLesson.class);
         startActivity(intent);
+    }
+
+//刷新
+    @Override
+    public void onRefresh() {
+        mHandler.postDelayed(new Runnable() {
+            public void run() {
+                isReFlesh = true;
+                allResourseKindBean.clear();
+                allCourseList.clear();
+                getResourseNet();
+                swipe_refresh_widget.setRefreshing(false);
+                isReFlesh = false;
+            }
+        }, 1000);
     }
 }

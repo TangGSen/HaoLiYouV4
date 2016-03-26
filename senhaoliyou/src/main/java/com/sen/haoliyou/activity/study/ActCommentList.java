@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,8 +15,6 @@ import android.view.KeyEvent;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
-import com.cjj.MaterialRefreshLayout;
-import com.cjj.MaterialRefreshListener;
 import com.sen.haoliyou.R;
 import com.sen.haoliyou.adapter.CommentListAdapter;
 import com.sen.haoliyou.base.BaseActivity;
@@ -28,6 +27,7 @@ import com.sen.haoliyou.mode.EventSubmitComentSucess;
 import com.sen.haoliyou.tools.Constants;
 import com.sen.haoliyou.tools.DialogUtils;
 import com.sen.haoliyou.tools.NetUtil;
+import com.sen.haoliyou.widget.CustomerSwipRefresh;
 import com.sen.haoliyou.widget.RecyleViewItemDecoration;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.Callback;
@@ -44,7 +44,7 @@ import okhttp3.Call;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class ActCommentList extends BaseActivity {
+public class ActCommentList extends BaseActivity  {
     //	protected static final int END_TO_WRITE_COMMENT = 0;
 
     //	private ImageButton btn_back_comment;
@@ -57,8 +57,9 @@ public class ActCommentList extends BaseActivity {
     AppCompatTextView common_back;
     @Bind(R.id.btn_write_common)
     AppCompatImageButton btn_write_common;
-    @Bind(R.id.refresh_layout)
-    MaterialRefreshLayout refresh_layout;
+    RecyclerView study_lesson_recyclerview;
+    @Bind(R.id.comment_swipe_refresh_widget)
+    CustomerSwipRefresh swipe_refresh_widget;
 
     private List<CommentItemBean> commonList;
     private List<CommentItemBean> allCommonList;
@@ -163,43 +164,74 @@ public class ActCommentList extends BaseActivity {
         xRecyclerView.setLayoutManager(linearnLayoutManager);
         //如果可以确定每个item的高度是固定的，设置这个选项可以提高性能
         xRecyclerView.setHasFixedSize(true);
-        refresh_layout.setLoadMore(true);
+
         xRecyclerView.addItemDecoration(new RecyleViewItemDecoration(this, R.drawable.shape_recycle_item_decoration));
 
-        refresh_layout.setMaterialRefreshListener(new MaterialRefreshListener() {
+        swipe_refresh_widget.setColorSchemeResources(R.color.theme_color,R.color.theme_color);
+        swipe_refresh_widget.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
-            public void onRefresh(MaterialRefreshLayout materialRefreshLayout) {
+            public void onRefresh() {
                 mHandler.postDelayed(new Runnable() {
                     public void run() {
                         isRefleshLoadMore = true;
                         allCommonList.clear();
                         getCommntList(1);
                         isRefleshLoadMore = false;
-                        refresh_layout.finishRefresh();
+                        swipe_refresh_widget.setRefreshing(false);
                     }
                 }, 1000);
             }
+        });
 
+        swipe_refresh_widget.setOnLoadListener(new CustomerSwipRefresh.OnLoadListener() {
             @Override
-            public void onRefreshLoadMore(MaterialRefreshLayout materialRefreshLayout) {
-                super.onRefreshLoadMore(materialRefreshLayout);
+            public void onLoad() {
                 mHandler.postDelayed(new Runnable() {
                     public void run() {
 
                         if (maxPage == currentPage) {
                             Toast.makeText(ActCommentList.this, "没有更多数据了", Toast.LENGTH_SHORT).show();
-                            refresh_layout.finishRefreshLoadMore();
+                            // 更新完后调用该方法结束刷新
+                            swipe_refresh_widget.setLoading(false);
                             return;
                         }
                         isRefleshLoadMore = true;
                         currentPage++;
                         getCommntList(currentPage);
                         isRefleshLoadMore = false;
-                        refresh_layout.finishRefreshLoadMore();
+                        swipe_refresh_widget.setLoading(false);
                     }
                 }, 1000);
             }
         });
+
+
+//        refresh_layout.setMaterialRefreshListener(new MaterialRefreshListener() {
+//            @Override
+//            public void onRefresh(MaterialRefreshLayout materialRefreshLayout) {
+//
+//            }
+//
+//            @Override
+//            public void onRefreshLoadMore(MaterialRefreshLayout materialRefreshLayout) {
+//                super.onRefreshLoadMore(materialRefreshLayout);
+//                mHandler.postDelayed(new Runnable() {
+//                    public void run() {
+//
+//                        if (maxPage == currentPage) {
+//                            Toast.makeText(ActCommentList.this, "没有更多数据了", Toast.LENGTH_SHORT).show();
+//                            refresh_layout.finishRefreshLoadMore();
+//                            return;
+//                        }
+//                        isRefleshLoadMore = true;
+//                        currentPage++;
+//                        getCommntList(currentPage);
+//                        isRefleshLoadMore = false;
+//                        refresh_layout.finishRefreshLoadMore();
+//                    }
+//                }, 1000);
+//            }
+//        });
 
 
     }
@@ -311,6 +343,7 @@ public class ActCommentList extends BaseActivity {
         }
         return false;
     }
+
 
 
 }

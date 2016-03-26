@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -19,8 +20,6 @@ import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
-import com.cjj.MaterialRefreshLayout;
-import com.cjj.MaterialRefreshListener;
 import com.sen.haoliyou.R;
 import com.sen.haoliyou.activity.ActLogin;
 import com.sen.haoliyou.activity.DownloadManagerActivity;
@@ -60,7 +59,7 @@ import okhttp3.Response;
 /**
  * Created by Sen on 2016/3/3.
  */
-public class FragmentStudy extends BaseFragment {
+public class FragmentStudy extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener{
 
     private View rootView;
     @Bind(R.id.study_toolbar)
@@ -73,8 +72,8 @@ public class FragmentStudy extends BaseFragment {
     AppCompatTextView tv_lesson_theme;
     @Bind(R.id.study_lesson_recyclerview)
     RecyclerView study_lesson_recyclerview;
-    @Bind(R.id.study_refresh_layout)
-    MaterialRefreshLayout study_refresh_layout;
+    @Bind(R.id.swipe_refresh_widget)
+    SwipeRefreshLayout swipe_refresh_widget;
     @Bind(R.id.tip_null_data)
     FrameLayout tip_null_data;
 
@@ -238,22 +237,13 @@ public class FragmentStudy extends BaseFragment {
 //        study_lesson_recyclerview.setHasFixedSize(true);
         study_lesson_recyclerview.setItemAnimator(new DefaultItemAnimator());
         study_lesson_recyclerview.addItemDecoration(new RecyleViewItemDecoration(getContext(), R.drawable.shape_recycle_item_decoration));
-        study_refresh_layout.setLoadMore(false);
-        study_refresh_layout.setMaterialRefreshListener(new MaterialRefreshListener() {
-            @Override
-            public void onRefresh(MaterialRefreshLayout materialRefreshLayout) {
-                mHandler.postDelayed(new Runnable() {
-                    public void run() {
-                        isReFlesh = true;
-                        allLesssListData.clear();
-                        getStudyData();
-                        study_refresh_layout.finishRefresh();
-                        isReFlesh = false;
-                    }
-                }, 1000);
+        //填一个的时候不认
+        swipe_refresh_widget.setColorSchemeResources(R.color.theme_color,R.color.theme_color);
+        swipe_refresh_widget.setOnRefreshListener(this);
 
-            }
-        });
+
+
+
 
     }
 
@@ -363,4 +353,16 @@ public class FragmentStudy extends BaseFragment {
     }
 
 
+    @Override
+    public void onRefresh() {
+        mHandler.postDelayed(new Runnable() {
+            public void run() {
+        isReFlesh = true;
+        allLesssListData.clear();
+        getStudyData();
+        swipe_refresh_widget.setRefreshing(false);
+        isReFlesh = false;
+            }
+        }, 1000);
+    }
 }

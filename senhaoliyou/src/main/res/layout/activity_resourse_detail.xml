@@ -62,11 +62,10 @@
         android:background="@color/under_bar_line" />
 
 
-    <com.cjj.MaterialRefreshLayout
-        android:id="@+id/resoucedetail_refresh_layout"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/resdetail_refreshlayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:progress_colors="@array/my_material_colors">
+        android:layout_height="match_parent" >
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/resourse_detail_listview"
@@ -74,7 +73,7 @@
             android:layout_height="match_parent"
             android:overScrollMode="never"
             android:scrollbars="none" />
-    </com.cjj.MaterialRefreshLayout>
+    </android.support.v4.widget.SwipeRefreshLayout>
 
 
 </LinearLayout>

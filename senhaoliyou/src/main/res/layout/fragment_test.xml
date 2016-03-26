@@ -15,29 +15,28 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:textSize="@dimen/tab_forn_size_18sp"
             android:text="我的考试"
-            android:textColor="@color/font_h1" />
+            android:textColor="@color/font_h1"
+            android:textSize="@dimen/tab_forn_size_18sp" />
 
     </android.support.v7.widget.Toolbar>
 
     <View
-        android:layout_gravity="bottom"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/under_bar_line"/>
+        android:layout_gravity="bottom"
+        android:background="@color/under_bar_line" />
 
-    <com.cjj.MaterialRefreshLayout
-        android:id="@+id/test_refresh_layout"
-        app:progress_colors="@array/my_material_colors"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/test_swipe_refresh_widget"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/test_recylerview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:overScrollMode="never"
-        android:scrollbars="none" />
-    </com.cjj.MaterialRefreshLayout>
 
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/test_recylerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:overScrollMode="never"
+            android:scrollbars="none" />
+    </android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>

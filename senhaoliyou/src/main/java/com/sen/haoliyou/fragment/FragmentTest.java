@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -14,8 +15,6 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
-import com.cjj.MaterialRefreshLayout;
-import com.cjj.MaterialRefreshListener;
 import com.sen.haoliyou.R;
 import com.sen.haoliyou.activity.exam.ActExamDetail;
 import com.sen.haoliyou.adapter.ExamListAdapter;
@@ -44,12 +43,12 @@ import okhttp3.Response;
 /**
  * Created by Sen on 2016/3/3.
  */
-public class FragmentTest extends BaseFragment {
+public class FragmentTest extends BaseFragment  implements SwipeRefreshLayout.OnRefreshListener {
     private View rootView;
     @Bind(R.id.test_recylerview)
     RecyclerView test_recylerview;
-    @Bind(R.id.test_refresh_layout)
-    MaterialRefreshLayout test_refresh_layout;
+    @Bind(R.id.test_swipe_refresh_widget)
+    SwipeRefreshLayout swipe_refresh_widget;
 
 
     private static final int GETDATA_ERROR = 0;
@@ -161,23 +160,8 @@ public class FragmentTest extends BaseFragment {
         test_recylerview.setHasFixedSize(true);
 
         test_recylerview.addItemDecoration(new RecyleViewItemDecoration(getContext(), R.drawable.shape_recycle_item_decoration));
-        test_refresh_layout.setLoadMore(false);
-        test_refresh_layout.setMaterialRefreshListener(new MaterialRefreshListener() {
-            @Override
-            public void onRefresh(MaterialRefreshLayout materialRefreshLayout) {
-                mHandler.postDelayed(new Runnable() {
-                    public void run() {
-                        isReFlesh = true;
-                        allExamItemBeanList.clear();
-                        getExamListData();
-                        test_refresh_layout.finishRefresh();
-                        isReFlesh = false;
-                    }
-                }, 1000);
-
-            }
-        });
-
+        swipe_refresh_widget.setColorSchemeResources(R.color.theme_color,R.color.theme_color);
+        swipe_refresh_widget.setOnRefreshListener(this);
     }
 
     public void onEvent(EventSubmitAnswerSucess event) {
@@ -249,5 +233,18 @@ public class FragmentTest extends BaseFragment {
     public void onDestroy() {
         EventBus.getDefault().unregister(this);
         super.onDestroy();
+    }
+
+    @Override
+    public void onRefresh() {
+        mHandler.postDelayed(new Runnable() {
+            public void run() {
+                isReFlesh = true;
+                allExamItemBeanList.clear();
+                getExamListData();
+                swipe_refresh_widget.setRefreshing(false);
+                isReFlesh = false;
+            }
+        }, 1000);
     }
 }

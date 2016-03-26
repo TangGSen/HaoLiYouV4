@@ -46,19 +46,17 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/under_bar_line" />
-
-    <com.cjj.MaterialRefreshLayout
-        android:id="@+id/refresh_layout"
+    <com.sen.haoliyou.widget.CustomerSwipRefresh
+        android:id="@+id/comment_swipe_refresh_widget"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:progress_colors="@array/my_material_colors">
+        android:layout_height="match_parent" >
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/listview_comment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scrollbars="none" />
-    </com.cjj.MaterialRefreshLayout>
+    </com.sen.haoliyou.widget.CustomerSwipRefresh>
 
 
 </LinearLayout>
