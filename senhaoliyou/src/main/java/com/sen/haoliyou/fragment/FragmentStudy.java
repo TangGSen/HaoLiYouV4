@@ -59,7 +59,7 @@ import okhttp3.Response;
 /**
  * Created by Sen on 2016/3/3.
  */
-public class FragmentStudy extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener{
+public class FragmentStudy extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener {
 
     private View rootView;
     @Bind(R.id.study_toolbar)
@@ -106,12 +106,10 @@ public class FragmentStudy extends BaseFragment implements SwipeRefreshLayout.On
                         Toast.makeText(getContext(), "没有数据", Toast.LENGTH_SHORT).show();
                         return false;
                     }
-
-
                     if (mLesssListData.size() == 0) {
                         setDataTip(true);
                         Toast.makeText(getContext(), R.string.has_null_data, Toast.LENGTH_SHORT).show();
-                    }else{
+                    } else {
                         setDataTip(false);
                     }
 
@@ -151,8 +149,8 @@ public class FragmentStudy extends BaseFragment implements SwipeRefreshLayout.On
 
     }
 
-    private  void setDataTip(boolean hasData){
-        tip_null_data.setVisibility(!hasData?View.GONE:View.VISIBLE);
+    private void setDataTip(boolean hasData) {
+        tip_null_data.setVisibility(!hasData ? View.GONE : View.VISIBLE);
 
     }
 
@@ -194,8 +192,16 @@ public class FragmentStudy extends BaseFragment implements SwipeRefreshLayout.On
         } else {
             isLoad = false;
             Log.e("sen", "老数据");
+
             allLesssListData = (List<LessonItemBean>) savedInstanceState.getSerializable("LesssListData");
-            showRecyclerviewItemData(allLesssListData);
+            if (allLesssListData != null) {
+                if (allLesssListData.size()==0){
+                    setDataTip(true);
+                }else {
+                    setDataTip(false);
+                }
+                showRecyclerviewItemData(allLesssListData);
+            }
         }
 
         return rootView;
@@ -222,7 +228,7 @@ public class FragmentStudy extends BaseFragment implements SwipeRefreshLayout.On
 
     public void onEvent(EventKillPositonStudy event) { //接收方法  在发关事件的线程接收
         adapter.removeItem(event.getPosition());
-        if (allLesssListData.size()==0){
+        if (allLesssListData.size() == 0) {
             setDataTip(true);
         }
     }
@@ -238,11 +244,8 @@ public class FragmentStudy extends BaseFragment implements SwipeRefreshLayout.On
         study_lesson_recyclerview.setItemAnimator(new DefaultItemAnimator());
         study_lesson_recyclerview.addItemDecoration(new RecyleViewItemDecoration(getContext(), R.drawable.shape_recycle_item_decoration));
         //填一个的时候不认
-        swipe_refresh_widget.setColorSchemeResources(R.color.theme_color,R.color.theme_color);
+        swipe_refresh_widget.setColorSchemeResources(R.color.theme_color, R.color.theme_color);
         swipe_refresh_widget.setOnRefreshListener(this);
-
-
-
 
 
     }
@@ -357,11 +360,11 @@ public class FragmentStudy extends BaseFragment implements SwipeRefreshLayout.On
     public void onRefresh() {
         mHandler.postDelayed(new Runnable() {
             public void run() {
-        isReFlesh = true;
-        allLesssListData.clear();
-        getStudyData();
-        swipe_refresh_widget.setRefreshing(false);
-        isReFlesh = false;
+                isReFlesh = true;
+                allLesssListData.clear();
+                getStudyData();
+                swipe_refresh_widget.setRefreshing(false);
+                isReFlesh = false;
             }
         }, 1000);
     }
