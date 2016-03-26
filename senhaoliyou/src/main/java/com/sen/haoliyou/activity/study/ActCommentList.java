@@ -12,6 +12,8 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
@@ -24,10 +26,11 @@ import com.sen.haoliyou.mode.CommentItemBean;
 import com.sen.haoliyou.mode.EventComentCountForResouce;
 import com.sen.haoliyou.mode.EventComentCountForStudy;
 import com.sen.haoliyou.mode.EventSubmitComentSucess;
+import com.sen.haoliyou.reflesh.EndlessRecyclerOnScrollListener;
+import com.sen.haoliyou.reflesh.HeaderViewRecyclerAdapter;
 import com.sen.haoliyou.tools.Constants;
 import com.sen.haoliyou.tools.DialogUtils;
 import com.sen.haoliyou.tools.NetUtil;
-import com.sen.haoliyou.widget.CustomerSwipRefresh;
 import com.sen.haoliyou.widget.RecyleViewItemDecoration;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.Callback;
@@ -57,9 +60,13 @@ public class ActCommentList extends BaseActivity  {
     AppCompatTextView common_back;
     @Bind(R.id.btn_write_common)
     AppCompatImageButton btn_write_common;
-    RecyclerView study_lesson_recyclerview;
-    @Bind(R.id.comment_swipe_refresh_widget)
-    CustomerSwipRefresh swipe_refresh_widget;
+
+
+    @Bind(R.id.comment_refresh_widget)
+    SwipeRefreshLayout swipe_refresh_widget;
+
+
+
 
     private List<CommentItemBean> commonList;
     private List<CommentItemBean> allCommonList;
@@ -74,6 +81,7 @@ public class ActCommentList extends BaseActivity  {
     private static final int SHOW_DATA = 1;
 
     private CommentListAdapter adapter;
+    private HeaderViewRecyclerAdapter headerViewRecyclerAdapter;
     private int sumbmitCount = 0;
     private  boolean isRefleshLoadMore = false;
 
@@ -121,6 +129,7 @@ public class ActCommentList extends BaseActivity  {
     });
 
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -166,7 +175,9 @@ public class ActCommentList extends BaseActivity  {
         xRecyclerView.setHasFixedSize(true);
 
         xRecyclerView.addItemDecoration(new RecyleViewItemDecoration(this, R.drawable.shape_recycle_item_decoration));
-
+        adapter = new CommentListAdapter(ActCommentList.this, allCommonList);
+        headerViewRecyclerAdapter = new HeaderViewRecyclerAdapter(adapter);
+        createLoadMoreView();
         swipe_refresh_widget.setColorSchemeResources(R.color.theme_color,R.color.theme_color);
         swipe_refresh_widget.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -182,28 +193,29 @@ public class ActCommentList extends BaseActivity  {
                 }, 1000);
             }
         });
-
-        swipe_refresh_widget.setOnLoadListener(new CustomerSwipRefresh.OnLoadListener() {
+        xRecyclerView.addOnScrollListener(new EndlessRecyclerOnScrollListener(linearnLayoutManager) {
             @Override
-            public void onLoad() {
+            public void onLoadMore(int currentPages) {
                 mHandler.postDelayed(new Runnable() {
                     public void run() {
 
                         if (maxPage == currentPage) {
                             Toast.makeText(ActCommentList.this, "没有更多数据了", Toast.LENGTH_SHORT).show();
                             // 更新完后调用该方法结束刷新
-                            swipe_refresh_widget.setLoading(false);
                             return;
                         }
                         isRefleshLoadMore = true;
                         currentPage++;
                         getCommntList(currentPage);
                         isRefleshLoadMore = false;
-                        swipe_refresh_widget.setLoading(false);
                     }
                 }, 1000);
+
             }
         });
+
+
+
 
 
 //        refresh_layout.setMaterialRefreshListener(new MaterialRefreshListener() {
@@ -342,6 +354,13 @@ public class ActCommentList extends BaseActivity  {
             return true;
         }
         return false;
+    }
+
+    private void createLoadMoreView() {
+        View loadMoreView = LayoutInflater
+                .from(ActCommentList.this)
+                .inflate(R.layout.view_load_more, xRecyclerView, false);
+        headerViewRecyclerAdapter.addFooterView(loadMoreView);
     }
 
 
