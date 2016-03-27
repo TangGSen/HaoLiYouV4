@@ -8,13 +8,14 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
+import com.jcodecraeer.xrecyclerview.ProgressStyle;
+import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.sen.haoliyou.R;
 import com.sen.haoliyou.adapter.CommentListAdapter;
 import com.sen.haoliyou.base.BaseActivity;
@@ -51,15 +52,16 @@ public class ActCommentList extends BaseActivity  {
     private CommentHomeBean getLessonCommentListBean;
 
     @Bind(R.id.listview_comment)
-    RecyclerView xRecyclerView;
+    XRecyclerView xRecyclerView;
     @Bind(R.id.common_back)
     AppCompatTextView common_back;
     @Bind(R.id.btn_write_common)
     AppCompatImageButton btn_write_common;
 
-
     @Bind(R.id.comment_refresh_widget)
     SwipeRefreshLayout swipe_refresh_widget;
+
+
 
 
 
@@ -174,7 +176,8 @@ public class ActCommentList extends BaseActivity  {
         xRecyclerView.addItemDecoration(new RecyleViewItemDecoration(this, R.drawable.shape_recycle_item_decoration));
         adapter = new CommentListAdapter(ActCommentList.this, allCommonList);
         xRecyclerView.setAdapter(adapter);
-        swipe_refresh_widget.setColorSchemeResources(R.color.theme_color,R.color.theme_color);
+
+        swipe_refresh_widget.setColorSchemeResources(R.color.theme_color, R.color.theme_color);
         swipe_refresh_widget.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -185,54 +188,36 @@ public class ActCommentList extends BaseActivity  {
                         allCommonList.clear();
                         getCommntList(1);
                         isLoadReflesh = false;
-                        swipe_refresh_widget.setRefreshing(false);
+                        xRecyclerView.refreshComplete();
                     }
                 }, 1000);
             }
         });
 
-        xRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            private int mCurrentState = RecyclerView.SCROLL_STATE_IDLE;
-
-
-            private int lastdy = 0;
-
-
+        xRecyclerView.setLaodingMoreProgressStyle(ProgressStyle.BallRotate);
+        xRecyclerView.setPullRefreshEnabled(false);
+        xRecyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                if (mCurrentState == RecyclerView.SCROLL_STATE_DRAGGING || mCurrentState == RecyclerView.SCROLL_STATE_SETTLING) {
-                    if (dy < 0) {//向下滑动
-                        //可以不处理，在SwipeRefreshLayout的onRefreshListener中实现下拉刷新
-                    } else {//向上滑动
-                        RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
-                        if (layoutManager instanceof LinearLayoutManager) {
-                            int lastitem = linearnLayoutManager.findLastCompletelyVisibleItemPosition();
-                            if (recyclerView.getAdapter().getItemCount() == lastitem + 1) {
-                                mHandler.postDelayed(new Runnable() {
-                                    public void run() {
-                                        if (maxPage == currentPage) {
-                                            Toast.makeText(ActCommentList.this, "没有更多数据了", Toast.LENGTH_SHORT).show();
-                                            return;
-                                        }
-                                        isLoadMore = true;
-                                        currentPage++;
-                                        getCommntList(currentPage);
-                                        isLoadMore = false;
-                                    }
-                                }, 1000);
-                            }
-                        }
-                    }
-                    lastdy = dy;
-                }
-                super.onScrolled(recyclerView, dx, dy);
+            public void onRefresh() {
+
             }
 
-
             @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                mCurrentState = newState;
-                super.onScrollStateChanged(recyclerView, newState);
+            public void onLoadMore() {
+                mHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        if (maxPage == currentPage) {
+                            xRecyclerView.loadMoreComplete();
+                            Toast.makeText(ActCommentList.this, "没有更多数据了", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        isLoadMore = true;
+                        currentPage++;
+                        getCommntList(currentPage);
+                        isLoadMore = false;
+                        xRecyclerView.loadMoreComplete();
+                    }
+                }, 1000);
             }
         });
 
