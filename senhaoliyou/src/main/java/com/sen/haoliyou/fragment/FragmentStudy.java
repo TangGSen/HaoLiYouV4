@@ -100,11 +100,11 @@ public class FragmentStudy extends BaseFragment implements SwipeRefreshLayout.On
                     mLesssListData = homeBeam.getCourselist();
                     // 当返回的数据为空的时候，那么就要显示这个
                     if (mLesssListData == null) {
-                        Toast.makeText(getContext(), "没有数据", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getContext(), "没有数据", Toast.LENGTH_SHORT).show();
                         return false;
                     }
                     if (mLesssListData.size() == 0) {
-                        Toast.makeText(getContext(), R.string.has_null_data, Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getContext(), R.string.has_null_data, Toast.LENGTH_SHORT).show();
                     }
                     allLesssListData.clear();
                     allLesssListData.addAll(mLesssListData);
