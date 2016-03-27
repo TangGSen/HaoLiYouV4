@@ -82,6 +82,7 @@ public class ActResoucesStudyDetail extends BaseActivity {
 
     private static final int GETDATA_ERROR = 0;
     private static final int SHOW_DATA = 1;
+    private static final int COLLECTE_LESSON=2;
 
     private boolean isSeleted = false;
 
@@ -103,6 +104,27 @@ public class ActResoucesStudyDetail extends BaseActivity {
                     //创建并设置Adapter
                     SectionsAdapter adapter = new SectionsAdapter(ActResoucesStudyDetail.this, sectionList, childItemBean.getId());
                     listview_lesson.setAdapter(adapter);
+                    break;
+
+                case 2:
+                    boolean selecte = (boolean) msg.obj;
+                    //如果当前是选的，那么就finish 就行了
+                    if (isSeleted && selecte) {
+                        //最后还有
+                        //isSeleted = !isSeleted;
+                        btn_lesson_collection.setSelected(false);
+                        isSeleted = !isSeleted;
+                        EventBus.getDefault().post(new EventLoveClickFromRescouce());
+                        showSelecedDialog(ResourcesUtils.getResString(ActResoucesStudyDetail.this, R.string.str_unlove_lesson));
+                    } else if (!isSeleted && selecte) {
+                        btn_lesson_collection.setSelected(true);
+                        isSeleted = !isSeleted;
+                        EventBus.getDefault().post(new EventLoveClickFromRescouce());
+                        showSelecedDialog(ResourcesUtils.getResString(ActResoucesStudyDetail.this, R.string.str_love_lesson));
+                    } else {
+                        //
+                        Toast.makeText(ActResoucesStudyDetail.this, "操作失败，请稍后重试", Toast.LENGTH_SHORT).show();
+                    }
                     break;
 
             }
@@ -244,7 +266,7 @@ public class ActResoucesStudyDetail extends BaseActivity {
 
 
     private void showSelecedDialog(String msg) {
-        BaseDialogCumstorTip.getDefault().showOneBtnDilog(new BaseDialogCumstorTip.DialogButtonOnclickLinster() {
+        BaseDialogCumstorTip.getDefault().showOneMsgOneBtnDilog(new BaseDialogCumstorTip.DialogButtonOnclickLinster() {
             @Override
             public void onLeftButtonClick(CustomerDialog dialog) {
                 if (dialog != null && dialog.isShowing())
@@ -256,7 +278,7 @@ public class ActResoucesStudyDetail extends BaseActivity {
             public void onRigthButtonClick(CustomerDialog dialog) {
 
             }
-        }, 200,100,ActResoucesStudyDetail.this, "", msg, "确定", false, true);
+        }, 220,130,ActResoucesStudyDetail.this, msg, "确定");
     }
 
 
@@ -293,27 +315,11 @@ public class ActResoucesStudyDetail extends BaseActivity {
 
                     @Override
                     public void onResponse(Boolean homeBeam) {
-//                        Message message = Message.obtain();
-//                        message.obj = homeBeam;
-//                        message.what = SHOW_DATA;
-//                        mHandler.sendMessage(message);
-                        //如果当前是选的，那么就finish 就行了
-                        if (isSeleted && homeBeam) {
-                            //最后还有
-                            //isSeleted = !isSeleted;
-                            btn_lesson_collection.setSelected(false);
-                            isSeleted = !isSeleted;
-                            EventBus.getDefault().post(new EventLoveClickFromRescouce());
-                            showSelecedDialog(ResourcesUtils.getResString(ActResoucesStudyDetail.this, R.string.str_unlove_lesson));
-                        } else if (!isSeleted && homeBeam) {
-                            btn_lesson_collection.setSelected(true);
-                            isSeleted = !isSeleted;
-                            EventBus.getDefault().post(new EventLoveClickFromRescouce());
-                            showSelecedDialog(ResourcesUtils.getResString(ActResoucesStudyDetail.this, R.string.str_love_lesson));
-                        } else {
-                            //
-                            Toast.makeText(ActResoucesStudyDetail.this, "操作失败，请稍后重试", Toast.LENGTH_SHORT).show();
-                        }
+                        Message message = Message.obtain();
+                        message.obj =homeBeam;
+                        message.what = COLLECTE_LESSON;
+                        mHandler.sendMessage(message);
+
 
 
                     }

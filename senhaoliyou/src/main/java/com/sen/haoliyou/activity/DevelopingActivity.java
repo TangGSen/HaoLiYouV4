@@ -2,10 +2,9 @@ package com.sen.haoliyou.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.AppCompatButton;
-import android.view.View;
 
 import com.sen.haoliyou.R;
+import com.sen.haoliyou.widget.BaseDialogCumstorTip;
 import com.sen.haoliyou.widget.CustomerDialog;
 
 public class DevelopingActivity extends AppCompatActivity {
@@ -19,17 +18,18 @@ public class DevelopingActivity extends AppCompatActivity {
     }
 
     private void showDevelopingActivity() {
-        final CustomerDialog dialog = new CustomerDialog(DevelopingActivity.this, 260, 150, R.layout.customer_tip_developing_dialog, R.style.Theme_dialog);
-        dialog.setCanceledOnTouchOutside(false);
-        dialog.show();
-        AppCompatButton exit_btn = (AppCompatButton) dialog.findViewById(R.id.develop_exit_btn);
-        exit_btn.setOnClickListener(new View.OnClickListener() {
+        BaseDialogCumstorTip.getDefault().showOneBtnDilog(new BaseDialogCumstorTip.DialogButtonOnclickLinster() {
             @Override
-            public void onClick(View arg0) {
+            public void onLeftButtonClick(CustomerDialog dialog) {
                 dialog.dismiss();
-               finish();
+                finish();
             }
-        });
+
+            @Override
+            public void onRigthButtonClick(CustomerDialog dialog) {
+
+            }
+        },260,150,DevelopingActivity.this,"温馨提示","该模块正在开发中，敬请后续关注，谢谢！","关闭",true,true);
 
     }
 }

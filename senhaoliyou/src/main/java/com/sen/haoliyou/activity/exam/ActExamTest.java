@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatRadioButton;
@@ -136,7 +135,7 @@ public class ActExamTest extends BaseActivity implements GestureDetector.OnGestu
                     break;
                 case 3:
                     Boolean isSesscess = (Boolean) msg.obj;
-                    DialogUtils.closeDialog();
+                    DialogUtils.closeUnCancleDialog();
                     if (isSesscess) {
                         Toast.makeText(ActExamTest.this, "提交成功", Toast.LENGTH_SHORT).show();
                         settingBtnAble(false);
@@ -151,6 +150,7 @@ public class ActExamTest extends BaseActivity implements GestureDetector.OnGestu
                     break;
                 case 4:
                     setSubmitTestBtn(true);
+                    DialogUtils.closeUnCancleDialog();
                     Toast.makeText(ActExamTest.this, "提交失败,请重新交卷", Toast.LENGTH_SHORT).show();
                     break;
                 case 5:
@@ -177,7 +177,7 @@ public class ActExamTest extends BaseActivity implements GestureDetector.OnGestu
             public void onRigthButtonClick(CustomerDialog dialog) {
 
             }
-        }, 240, 150, ActExamTest.this, "提交成功", "待考试成绩公布后，您可去PC端查看!", "确定", true, true);
+        }, 260, 160, ActExamTest.this, "提交成功", "待考试成绩公布后，您可去PC端查看!", "确定", true, true);
 
     }
 
@@ -488,17 +488,18 @@ public class ActExamTest extends BaseActivity implements GestureDetector.OnGestu
                         Toast.makeText(ActExamTest.this, "填空题不能包含'|'特殊符号,请换其他替代", Toast.LENGTH_SHORT).show();
                     } else {
                         isDialogShow = false;
-                        final CustomerDialog dialog = new CustomerDialog(ActExamTest.this, 260, 150, R.layout.customer_test_inputerror_dialog, R.style.Theme_dialog);
-                        dialog.setCanceledOnTouchOutside(false);
-                        dialog.show();
-                        AppCompatButton exit_btn = (AppCompatButton) dialog.findViewById(R.id.test_exit_btn);
-                        exit_btn.setOnClickListener(new View.OnClickListener() {
+                        BaseDialogCumstorTip.getDefault().showOneBtnDilog(new BaseDialogCumstorTip.DialogButtonOnclickLinster() {
                             @Override
-                            public void onClick(View arg0) {
-
+                            public void onLeftButtonClick(CustomerDialog dialog) {
                                 dialog.dismiss();
                             }
-                        });
+
+                            @Override
+                            public void onRigthButtonClick(CustomerDialog dialog) {
+
+                            }
+                        },260,160, ActExamTest.this,"温馨提示",ResourcesUtils.getResString(ActExamTest.this,R.string.test_input_error),"确定",true,true);
+
                     }
                 }
             });
@@ -864,7 +865,7 @@ public class ActExamTest extends BaseActivity implements GestureDetector.OnGestu
     }
 
     public void countUserAnswer() {
-        DialogUtils.showDialog(this, "提交试卷");
+        DialogUtils.showunCancleDialog(this, "提交试卷");
         new Thread() {
             @Override
             public void run() {
@@ -896,7 +897,7 @@ public class ActExamTest extends BaseActivity implements GestureDetector.OnGestu
 
     public void submitUserAnswer(String answer) {
         if (!NetUtil.isNetworkConnected(this)) {
-            DialogUtils.closeDialog();
+            DialogUtils.closeUnCancleDialog();
             setSubmitTestBtn(true);
             Toast.makeText(ActExamTest.this, "网络未连接", Toast.LENGTH_SHORT).show();
             return;

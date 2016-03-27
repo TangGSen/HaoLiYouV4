@@ -15,6 +15,7 @@ import com.sen.haoliyou.mode.EventNoThing;
 import com.sen.haoliyou.mode.EventSubmitComentSucess;
 import com.sen.haoliyou.tools.AcountManager;
 import com.sen.haoliyou.tools.Constants;
+import com.sen.haoliyou.tools.DialogUtils;
 import com.sen.haoliyou.tools.NetUtil;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.Callback;
@@ -43,6 +44,7 @@ public class ActWriteComment extends BaseActivity {
     private Handler mHandler = new Handler(new Handler.Callback() {
         @Override
         public boolean handleMessage(Message msg) {
+            DialogUtils.closeUnCancleDialog();
             switch (msg.what) {
                 case 0:
                     setSubmitBtn(true);
@@ -50,7 +52,15 @@ public class ActWriteComment extends BaseActivity {
 
                     break;
                 case 1:
-
+                   boolean isSuccess = (boolean) msg.obj;
+                    if (isSuccess){
+                        Toast.makeText(ActWriteComment.this, "评论成功", Toast.LENGTH_SHORT).show();
+                        EventBus.getDefault().post(new EventSubmitComentSucess());
+                        finish();
+                    }else{
+                        setSubmitBtn(true);
+                        Toast.makeText(ActWriteComment.this, "评论失败，请重试", Toast.LENGTH_SHORT).show();
+                    }
 
                     break;
 
@@ -113,6 +123,7 @@ public class ActWriteComment extends BaseActivity {
             Toast.makeText(ActWriteComment.this, "网络未连接", Toast.LENGTH_SHORT).show();
             return;
         }
+        DialogUtils.showunCancleDialog(ActWriteComment.this,"请稍后");
         String url = Constants.PATH + Constants.PATH_CourseComments;
         OkHttpUtils.post()
                 .url(url)
@@ -144,14 +155,10 @@ public class ActWriteComment extends BaseActivity {
 
                     @Override
                     public void onResponse(Boolean isSuccess) {
-                        if (isSuccess){
-                            Toast.makeText(ActWriteComment.this, "评论成功", Toast.LENGTH_SHORT).show();
-                            //其实我还想把这个评论的内容放回到CommentList, 使用EneventBus 简单
-                            EventBus.getDefault().post(new EventSubmitComentSucess());
-                            finish();
-                        }else{
-                            Toast.makeText(ActWriteComment.this, "评论失败，请重试", Toast.LENGTH_SHORT).show();
-                        }
+                        Message message =Message.obtain();
+                        message.obj = isSuccess;
+                        message.what = SHOW_DATA;
+                       mHandler.sendMessage(message);
 
                     }
                 });
@@ -161,6 +168,7 @@ public class ActWriteComment extends BaseActivity {
     @Override
     protected void onDestroy() {
         EventBus.getDefault().unregister(this);
+        mHandler.removeCallbacksAndMessages(null);
         super.onDestroy();
 
     }

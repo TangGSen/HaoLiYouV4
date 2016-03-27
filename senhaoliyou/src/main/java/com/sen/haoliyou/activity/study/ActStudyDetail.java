@@ -81,6 +81,7 @@ public class ActStudyDetail extends BaseActivity {
 
     private static final int GETDATA_ERROR = 0;
     private static final int SHOW_DATA = 1;
+    private static final int COLLECTE_LESSON=2;
 
     private boolean isSeleted = false;
 
@@ -106,11 +107,27 @@ public class ActStudyDetail extends BaseActivity {
                     listview_lesson.setAdapter(adapter);
                     break;
 
+                case 2:
+                    boolean select = (boolean) msg.obj;
+                    if (isSeleted && select) {
+                        //最后还有
+                        //isSeleted = !isSeleted;
+                        showSelecedDialog(ResourcesUtils.getResString(ActStudyDetail.this, R.string.str_unlove_lesson), true);
+                    } else if (!isSeleted && select) {
+                        btn_lesson_collection.setSelected(true);
+                        showSelecedDialog(ResourcesUtils.getResString(ActStudyDetail.this, R.string.str_love_lesson), false);
+                    } else {
+                        //
+                        Toast.makeText(ActStudyDetail.this, "操作失败，请稍后重试", Toast.LENGTH_SHORT).show();
+                    }
+                    break;
+
             }
 
             return false;
         }
     });
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -294,18 +311,11 @@ public class ActStudyDetail extends BaseActivity {
 
                     @Override
                     public void onResponse(Boolean homeBeam) {
+                        Message message = Message.obtain();
+                        message.obj =homeBeam;
+                        message.what = COLLECTE_LESSON;
+                        mHandler.sendMessage(message);
 
-                        if (isSeleted && homeBeam) {
-                            //最后还有
-                            //isSeleted = !isSeleted;
-                            showSelecedDialog(ResourcesUtils.getResString(ActStudyDetail.this, R.string.str_unlove_lesson), true);
-                        } else if (!isSeleted && homeBeam) {
-                            btn_lesson_collection.setSelected(true);
-                            showSelecedDialog(ResourcesUtils.getResString(ActStudyDetail.this, R.string.str_love_lesson), false);
-                        } else {
-                            //
-                            Toast.makeText(ActStudyDetail.this, "操作失败，请稍后重试", Toast.LENGTH_SHORT).show();
-                        }
 
 
                     }
@@ -314,7 +324,8 @@ public class ActStudyDetail extends BaseActivity {
     }
 
     private void showSelecedDialog(String msg, final boolean finish) {
-        BaseDialogCumstorTip.getDefault().showOneBtnDilog(new BaseDialogCumstorTip.DialogButtonOnclickLinster() {
+
+        BaseDialogCumstorTip.getDefault().showOneMsgOneBtnDilog(new BaseDialogCumstorTip.DialogButtonOnclickLinster() {
             @Override
             public void onLeftButtonClick(CustomerDialog dialog) {
                 if (dialog != null && dialog.isShowing())
@@ -329,7 +340,7 @@ public class ActStudyDetail extends BaseActivity {
             public void onRigthButtonClick(CustomerDialog dialog) {
 
             }
-        }, 200,100,ActStudyDetail.this, "", msg, "确定", false, true);
+        }, 220,130,ActStudyDetail.this, msg, "确定");
     }
 
     @OnClick(R.id.btn_startPlayer)

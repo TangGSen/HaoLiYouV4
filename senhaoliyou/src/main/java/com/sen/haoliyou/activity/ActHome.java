@@ -4,13 +4,10 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatImageView;
-import android.support.v7.widget.AppCompatTextView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.View;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
@@ -18,6 +15,7 @@ import com.sen.haoliyou.R;
 import com.sen.haoliyou.base.BaseActivity;
 import com.sen.haoliyou.tools.AcountManager;
 import com.sen.haoliyou.tools.Constants;
+import com.sen.haoliyou.widget.BaseDialogCumstorTip;
 import com.sen.haoliyou.widget.CustomerDialog;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.Callback;
@@ -98,33 +96,23 @@ public class ActHome extends BaseActivity {
     }
 
     private void showUpdateApk() {
-        final CustomerDialog dialog = new CustomerDialog(ActHome.this, 280, 150, R.layout.customer_tip_update_dialog, R.style.Theme_dialog);
-        dialog.setCanceledOnTouchOutside(false);
-        dialog.show();
-        AppCompatTextView txt_update_message = (AppCompatTextView) dialog.findViewById(R.id.txt_update_message);
-        txt_update_message.setText("新版本已发布，请更新！");
-        AppCompatButton update = (AppCompatButton) dialog.findViewById(R.id.update);
-        update.setText("立即更新");
-        AppCompatButton dismiss_dialog = (AppCompatButton) dialog.findViewById(R.id.update_dismiss_dialog);
-        dismiss_dialog.setText("下次再说");
-        update.setOnClickListener(new View.OnClickListener() {
 
+        BaseDialogCumstorTip.getDefault().showTwoBtnDialog(new BaseDialogCumstorTip.DialogButtonOnclickLinster() {
             @Override
-            public void onClick(View arg0) {
+            public void onLeftButtonClick(CustomerDialog dialog) {
                 dialog.dismiss();
                 Intent intent = new Intent(ActHome.this,NewVersionActivity.class);
                 String newversion = Constants.APK_PATH;
                 intent.putExtra("newversion", newversion);
                 startActivity(intent);
             }
-        });
-        dismiss_dialog.setOnClickListener(new View.OnClickListener() {
 
             @Override
-            public void onClick(View arg0) {
+            public void onRigthButtonClick(CustomerDialog dialog) {
                 dialog.dismiss();
             }
-        });
+        },ActHome.this,"更新提示","新版本已发布，请更新！","立即更新","下次再说",true,true);
+
     }
 
     @Override

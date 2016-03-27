@@ -198,7 +198,7 @@ public class DownloadingFragment extends Fragment implements
 
     // 把状态先屏蔽一下没出什么事，因为要转移到fragment中
     /*
-	 * @Override protected void onSaveInstanceState(Bundle outState) {
+     * @Override protected void onSaveInstanceState(Bundle outState) {
 	 * super.onSaveInstanceState(outState); outState.putLongArray("selection",
 	 * getSelectionAsArray()); }
 	 */
@@ -213,7 +213,7 @@ public class DownloadingFragment extends Fragment implements
     }
 
 	/*
-	 * @Override protected void onRestoreInstanceState(Bundle
+     * @Override protected void onRestoreInstanceState(Bundle
 	 * savedInstanceState) { super.onRestoreInstanceState(savedInstanceState);
 	 * mSelectedIds.clear(); for (long selectedId :
 	 * savedInstanceState.getLongArray("selection")) {
@@ -256,10 +256,6 @@ public class DownloadingFragment extends Fragment implements
             }
         };
     }
-
-
-
-
 
 
     /**
@@ -358,11 +354,7 @@ public class DownloadingFragment extends Fragment implements
     }
 
 
-
-
-
-
-//    private void showPausedDialog(long downloadId) {
+    //    private void showPausedDialog(long downloadId) {
 //        new AlertDialog.Builder(getActivity())
 //                .setTitle(R.string.download_queued)
 //                .setMessage(R.string.dialog_paused_body)
@@ -376,22 +368,22 @@ public class DownloadingFragment extends Fragment implements
     private void showFailedDialog(final long downloadId, String dialogBody) {
 
         BaseDialogCumstorTip.getDefault().showTwoBtnDialog(new BaseDialogCumstorTip.DialogButtonOnclickLinster() {
-            @Override
-            public void onLeftButtonClick(CustomerDialog dialog) {
-                dialog.dismiss();
-                mDownloadManager.restartDownload(downloadId);
-            }
+                                                               @Override
+                                                               public void onLeftButtonClick(CustomerDialog dialog) {
+                                                                   dialog.dismiss();
+                                                                   mDownloadManager.restartDownload(downloadId);
+                                                               }
 
-            @Override
-            public void onRigthButtonClick(CustomerDialog dialog) {
-                dialog.dismiss();
-                deleteDownload(downloadId);
-                new Delete().from(DownloadFileHistory.class).where("downloadid = ?", downloadId).execute();
+                                                               @Override
+                                                               public void onRigthButtonClick(CustomerDialog dialog) {
+                                                                   dialog.dismiss();
+                                                                   deleteDownload(downloadId);
+                                                                   new Delete().from(DownloadFileHistory.class).where("downloadid = ?", downloadId).execute();
 
-            }
-        },getActivity(), ResourcesUtils.getResString(getActivity(),R.string.dialog_title_not_available),
-                dialogBody, ResourcesUtils.getResString(getActivity(),R.string.retry_download),
-                ResourcesUtils.getResString(getActivity(),R.string.delete_download),true,true);
+                                                               }
+                                                           }, getActivity(), ResourcesUtils.getResString(getActivity(), R.string.dialog_title_not_available),
+                dialogBody, ResourcesUtils.getResString(getActivity(), R.string.retry_download),
+                ResourcesUtils.getResString(getActivity(), R.string.delete_download), true, true);
       /*  new AlertDialog.Builder(getActivity())
                 .setTitle(R.string.dialog_title_not_available)
                 .setMessage(dialogBody)
@@ -479,7 +471,7 @@ public class DownloadingFragment extends Fragment implements
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.selection_delete:
-                BaseDialogCumstorTip.getDefault().showTwoBtnDialog(new BaseDialogCumstorTip.DialogButtonOnclickLinster() {
+                BaseDialogCumstorTip.getDefault().showOneMsgTwoBtnDilog(new BaseDialogCumstorTip.DialogButtonOnclickLinster() {
                     @Override
                     public void onLeftButtonClick(CustomerDialog dialog) {
                         dialog.dismiss();
@@ -493,8 +485,7 @@ public class DownloadingFragment extends Fragment implements
                                 new Delete().from(DownloadFileHistory.class).where("downloadid = ?", downloadId).execute();
                             }
                             ActiveAndroid.setTransactionSuccessful();
-                        }
-                        finally {
+                        } finally {
                             ActiveAndroid.endTransaction();
                         }
                         clearSelection();
@@ -505,9 +496,7 @@ public class DownloadingFragment extends Fragment implements
                         dialog.dismiss();
                         clearSelection();
                     }
-                },getContext(),"确定删除?","","确定","取消",true,false);
-
-
+                }, getContext(), "确定删除?", "确定", "取消");
 
 
                 break;

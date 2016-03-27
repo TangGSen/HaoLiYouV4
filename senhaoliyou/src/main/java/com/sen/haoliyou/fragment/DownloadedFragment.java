@@ -543,7 +543,7 @@ public class DownloadedFragment extends Fragment implements
 		switch (v.getId()) {
 		case R.id.selection_delete:
 
-			BaseDialogCumstorTip.getDefault().showTwoBtnDialog(new BaseDialogCumstorTip.DialogButtonOnclickLinster() {
+			BaseDialogCumstorTip.getDefault().showOneMsgTwoBtnDilog(new BaseDialogCumstorTip.DialogButtonOnclickLinster() {
 				@Override
 				public void onLeftButtonClick(CustomerDialog dialog) {
 					dialog.dismiss();
@@ -569,8 +569,7 @@ public class DownloadedFragment extends Fragment implements
 					dialog.dismiss();
 					clearSelection();
 				}
-			},getContext(),"确定删除?","","确定","取消",true,false);
-
+			},getContext(),"确定删除?","确定","取消");
 
 
 			break;

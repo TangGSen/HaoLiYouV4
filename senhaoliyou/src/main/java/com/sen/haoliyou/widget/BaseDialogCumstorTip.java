@@ -11,8 +11,7 @@ import com.sen.haoliyou.R;
  * Created by Administrator on 2016/3/21.
  */
 public class BaseDialogCumstorTip {
-    private  DialogButtonOnclickLinster mDialogListener = null;
-    private CustomerDialog btnOneDialog=null;
+    private DialogButtonOnclickLinster mDialogListener = null;
 
     private volatile static BaseDialogCumstorTip single;
 
@@ -32,14 +31,14 @@ public class BaseDialogCumstorTip {
 
     public interface DialogButtonOnclickLinster {
         void onLeftButtonClick(CustomerDialog dialog);
+
         void onRigthButtonClick(CustomerDialog dialog);
     }
 
 
-
-    public  void showTwoBtnDialog(DialogButtonOnclickLinster dialogListener, Context context, String title, String msg, String leftBtnStr, String rightBtnStrl, boolean isTitleShow, boolean isMsgShow) {
+    public void showTwoBtnDialog(DialogButtonOnclickLinster dialogListener, Context context, String title, String msg, String leftBtnStr, String rightBtnStrl, boolean isTitleShow, boolean isMsgShow) {
         this.mDialogListener = dialogListener;
-        final CustomerDialog dialog = new CustomerDialog(context, 250, 150, R.layout.base_twobtn_customer_tip_dialog, R.style.Theme_dialog);
+        final CustomerDialog dialog = new CustomerDialog(context, 260, 160, R.layout.base_twobtn_customer_tip_dialog, R.style.Theme_dialog);
         dialog.setCanceledOnTouchOutside(false);
         dialog.setCancelable(false);
         dialog.show();
@@ -82,9 +81,11 @@ public class BaseDialogCumstorTip {
             }
         });
 
-    }public  void showOneBtnDilog(DialogButtonOnclickLinster dialogListener,int width,int height, Context context, String title, String msg, String leftBtnStr, boolean isTitleShow, boolean isMsgShow) {
+    }
+
+    public void showOneBtnDilog(DialogButtonOnclickLinster dialogListener, int width, int height, Context context, String title, String msg, String leftBtnStr, boolean isTitleShow, boolean isMsgShow) {
         this.mDialogListener = dialogListener;
-        btnOneDialog= new CustomerDialog(context, width, height, R.layout.base_onebtn_customer_tip_dialog, R.style.Theme_dialog);
+        final CustomerDialog  btnOneDialog = new CustomerDialog(context, width, height, R.layout.base_onebtn_customer_tip_dialog, R.style.Theme_dialog);
         btnOneDialog.setCanceledOnTouchOutside(false);
         btnOneDialog.show();
         btnOneDialog.setCancelable(false);
@@ -116,12 +117,67 @@ public class BaseDialogCumstorTip {
 
     }
 
-    public boolean isShowOneDialog(){
-        if (btnOneDialog != null && btnOneDialog.isShowing()) {
-            return true;
-        }
-        return false;
+    //显示一个message ,两个buttonn
+    public void showOneMsgTwoBtnDilog(DialogButtonOnclickLinster dialogListener, Context context, String msg, String leftBtnStr,String rightBtnStr) {
+        this.mDialogListener = dialogListener;
+        final CustomerDialog  btnDialog = new CustomerDialog(context, 230, 140, R.layout.base_twobtnonemsg_customer_tip_dialog, R.style.Theme_dialog);
+        btnDialog.setCanceledOnTouchOutside(false);
+        btnDialog.show();
+        AppCompatTextView txt_message = (AppCompatTextView) btnDialog.findViewById(R.id.twobtn_onemsg_txt_msg);
+        AppCompatButton btn_ok = (AppCompatButton) btnDialog.findViewById(R.id.twobtn_onemsg_btn_ok);
+        AppCompatButton btn_dismiss = (AppCompatButton) btnDialog.findViewById(R.id.twobtn_onemsg_btn_dismiss);
+        txt_message.setText(msg);
+        btn_ok.setText(leftBtnStr);
+        btn_dismiss.setText(rightBtnStr);
+        btn_ok.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View arg0) {
+                if (mDialogListener != null) {
+                    mDialogListener.onLeftButtonClick(btnDialog);
+                }
+            }
+        });
+
+        btn_dismiss.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mDialogListener != null) {
+                    mDialogListener.onRigthButtonClick(btnDialog);
+                }
+            }
+        });
     }
+
+
+    //一个消息，一个button
+
+
+    public void showOneMsgOneBtnDilog(DialogButtonOnclickLinster dialogListener, int width, int height, Context context, String msg, String leftBtnStr) {
+        this.mDialogListener = dialogListener;
+        final CustomerDialog  btnDialog = new CustomerDialog(context, width, height, R.layout.base_onebtnonemsg_tip_dialog, R.style.Theme_dialog);
+        btnDialog.setCanceledOnTouchOutside(false);
+        btnDialog.show();
+        AppCompatTextView txt_message = (AppCompatTextView) btnDialog.findViewById(R.id.txt_msg);
+        AppCompatButton btn_ok = (AppCompatButton) btnDialog.findViewById(R.id.onebtn_ok);
+        txt_message.setText(msg);
+        btn_ok.setText(leftBtnStr);
+        btn_ok.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View arg0) {
+                if (mDialogListener != null) {
+                    mDialogListener.onLeftButtonClick(btnDialog);
+                }
+            }
+        });
+
+
+    }
+
+
+
+
 
 
 }

@@ -310,7 +310,8 @@ public class FragmentStudy extends BaseFragment implements SwipeRefreshLayout.On
 
     @OnClick(R.id.btn_exit_app)
     public void exitAcount() {
-        BaseDialogCumstorTip.getDefault().showTwoBtnDialog(new BaseDialogCumstorTip.DialogButtonOnclickLinster() {
+
+        BaseDialogCumstorTip.getDefault().showOneMsgTwoBtnDilog(new BaseDialogCumstorTip.DialogButtonOnclickLinster() {
             @Override
             public void onLeftButtonClick(CustomerDialog dialog) {
                 if (dialog.isShowing())
@@ -320,14 +321,17 @@ public class FragmentStudy extends BaseFragment implements SwipeRefreshLayout.On
                 intent.putExtra("Frome", "changeAcount");
                 startActivity(intent);
                 ((MainActivity) getActivity()).killAll();
+
             }
 
             @Override
             public void onRigthButtonClick(CustomerDialog dialog) {
                 if (dialog.isShowing())
                     dialog.dismiss();
+
             }
-        }, getContext(), "退出提示", "是否注销该账号?", "确定", "取消", true, true);
+        }, getContext(),"是否注销该账号?", "确定", "取消");
+
 
 
     }
