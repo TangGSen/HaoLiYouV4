@@ -78,7 +78,8 @@ public class ActCommentList extends BaseActivity  {
 
     private CommentListAdapter adapter;
     private int sumbmitCount = 0;
-    private  boolean isRefleshLoadMore = false;
+    private  boolean isLoadReflesh = false;
+    private  boolean isLoadMore = false;
 
 
     private Handler mHandler = new Handler(new Handler.Callback() {
@@ -99,6 +100,9 @@ public class ActCommentList extends BaseActivity  {
                     }
                     if (commonList.size() == 0) {
                         Toast.makeText(ActCommentList.this, "当前没评论", Toast.LENGTH_SHORT).show();
+                    }
+                    if (isLoadReflesh){
+                        allCommonList.clear();
                     }
                     allCommonList.addAll(commonList);
                     Collections.sort(allCommonList);
@@ -179,10 +183,10 @@ public class ActCommentList extends BaseActivity  {
                 mHandler.postDelayed(new Runnable() {
                     public void run() {
                         currentPage =1;
-                        isRefleshLoadMore = true;
-                        allCommonList.clear();
+                        isLoadReflesh = true;
+
                         getCommntList(1);
-                        isRefleshLoadMore = false;
+                        isLoadReflesh = false;
                         swipe_refresh_widget.setRefreshing(false);
                     }
                 }, 1000);
@@ -211,10 +215,10 @@ public class ActCommentList extends BaseActivity  {
                                             Toast.makeText(ActCommentList.this, "没有更多数据了", Toast.LENGTH_SHORT).show();
                                             return;
                                         }
-                                        isRefleshLoadMore = true;
+                                        isLoadMore = true;
                                         currentPage++;
                                         getCommntList(currentPage);
-                                        isRefleshLoadMore = false;
+                                        isLoadMore = false;
                                     }
                                 }, 1000);
                             }
@@ -246,7 +250,7 @@ public class ActCommentList extends BaseActivity  {
 
 
     private void getCommntList(int page) {
-        if (!isRefleshLoadMore){
+        if (!isLoadMore && !isLoadReflesh){
             DialogUtils.showDialog(this,"请稍等");
         }
         if (!NetUtil.isNetworkConnected(this)) {

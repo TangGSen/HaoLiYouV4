@@ -1,7 +1,6 @@
 package com.sen.haoliyou.adapter;
 
 import android.content.Context;
-import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -15,6 +14,7 @@ import com.sen.haoliyou.imgloader.AnimateFirstDisplayListener;
 import com.sen.haoliyou.mode.CommentItemBean;
 import com.sen.haoliyou.tools.Constants;
 import com.sen.haoliyou.tools.ImageLoadOptions;
+import com.sen.haoliyou.widget.CustomImageView;
 
 import java.util.List;
 
@@ -88,14 +88,14 @@ public class CommentListAdapter extends RecyclerView.Adapter<CommentListAdapter.
     //自定义的ViewHolder，持有每个Item的的所有界面元素
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public AppCompatTextView user_common_name,tv_comment_content,tv_comment_time;
-        public AppCompatImageView imv_commemt_user;
+        public CustomImageView imv_commemt_user;
 
         public ViewHolder(View view) {
             super(view);
             user_common_name = (AppCompatTextView) view.findViewById(R.id.tv_comment_name);
             tv_comment_content = (AppCompatTextView) view.findViewById(R.id.tv_comment_content);
             tv_comment_time = (AppCompatTextView) view.findViewById(R.id.tv_comment_time);
-            imv_commemt_user = (AppCompatImageView) view.findViewById(R.id.imv_commemt_user);
+            imv_commemt_user = (CustomImageView) view.findViewById(R.id.imv_commemt_user);
 
         }
 

@@ -31,6 +31,7 @@ import com.sen.haoliyou.mode.ResourseKindBean;
 import com.sen.haoliyou.tools.AcountManager;
 import com.sen.haoliyou.tools.Constants;
 import com.sen.haoliyou.tools.DialogUtils;
+import com.sen.haoliyou.tools.NetUtil;
 import com.sen.haoliyou.widget.RecyleViewItemDecoration;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.Callback;
@@ -103,7 +104,8 @@ public class ActRepositoryDetail extends BaseActivity implements SwipeRefreshLay
 //        添加分割线
         resourse_detail_listview.addItemDecoration(new RecyleViewItemDecoration(this, R.drawable.shape_recycle_item_decoration));
 
-
+        swipe_refresh_widget.setColorSchemeResources(R.color.theme_color, R.color.theme_color);
+        swipe_refresh_widget.setOnRefreshListener(this);
 
 
     }
@@ -172,6 +174,7 @@ public class ActRepositoryDetail extends BaseActivity implements SwipeRefreshLay
             Toast.makeText(this, "没有数据", Toast.LENGTH_SHORT).show();
             return;
         }
+        allCourseList.clear();
         allCourseList.addAll(courseList);
         courseList.clear();
         studyRecyclerAdapter = new StudyRecyclerAdapter(this, allCourseList);
@@ -199,6 +202,7 @@ public class ActRepositoryDetail extends BaseActivity implements SwipeRefreshLay
 
             return;
         }
+        allResourseKindBean.clear();
         allResourseKindBean.addAll(cataLogList);
         cataLogList.clear();
         LessonCatalogAdapter cataLogAdapter = new LessonCatalogAdapter(this, allResourseKindBean);
@@ -246,6 +250,10 @@ public class ActRepositoryDetail extends BaseActivity implements SwipeRefreshLay
     }
 
     private void getResourseNet() {
+        if (!NetUtil.isNetworkConnected(this)) {
+            Toast.makeText(this, R.string.has_not_net, Toast.LENGTH_SHORT).show();
+            return;
+        }
         if (!isReFlesh)
             DialogUtils.showDialog(this, "请稍等");
         String url = Constants.PATH + Constants.PATH_Repository;
@@ -317,8 +325,6 @@ public class ActRepositoryDetail extends BaseActivity implements SwipeRefreshLay
         mHandler.postDelayed(new Runnable() {
             public void run() {
                 isReFlesh = true;
-                allResourseKindBean.clear();
-                allCourseList.clear();
                 getResourseNet();
                 swipe_refresh_widget.setRefreshing(false);
                 isReFlesh = false;

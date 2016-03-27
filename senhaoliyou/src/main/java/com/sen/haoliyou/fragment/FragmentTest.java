@@ -25,6 +25,7 @@ import com.sen.haoliyou.mode.EventSubmitAnswerSucess;
 import com.sen.haoliyou.tools.AcountManager;
 import com.sen.haoliyou.tools.Constants;
 import com.sen.haoliyou.tools.DialogUtils;
+import com.sen.haoliyou.tools.NetUtil;
 import com.sen.haoliyou.widget.RecyleViewItemDecoration;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.Callback;
@@ -87,6 +88,7 @@ public class FragmentTest extends BaseFragment  implements SwipeRefreshLayout.On
                         Toast.makeText(getActivity(), "没有数据", Toast.LENGTH_SHORT).show();
                         return false;
                     }
+                    allExamItemBeanList.clear();
                     allExamItemBeanList.addAll(examItemBeanList);
                     examItemBeanList.clear();
                     showExamData(allExamItemBeanList);
@@ -189,6 +191,10 @@ public class FragmentTest extends BaseFragment  implements SwipeRefreshLayout.On
     }
 
     private void getExamListData() {
+        if (!NetUtil.isNetworkConnected(getActivity())) {
+            Toast.makeText(getContext(), R.string.has_not_net, Toast.LENGTH_SHORT).show();
+            return;
+        }
         //下拉刷新和加载更多就不用show
         if (!isReFlesh)
             DialogUtils.showDialog(getActivity(), "请稍等");
@@ -240,7 +246,7 @@ public class FragmentTest extends BaseFragment  implements SwipeRefreshLayout.On
         mHandler.postDelayed(new Runnable() {
             public void run() {
                 isReFlesh = true;
-                allExamItemBeanList.clear();
+
                 getExamListData();
                 swipe_refresh_widget.setRefreshing(false);
                 isReFlesh = false;

@@ -31,6 +31,7 @@ import com.sen.haoliyou.mode.ResourseBean;
 import com.sen.haoliyou.mode.ResourseKindBean;
 import com.sen.haoliyou.tools.Constants;
 import com.sen.haoliyou.tools.DialogUtils;
+import com.sen.haoliyou.tools.NetUtil;
 import com.sen.haoliyou.widget.RecyleViewItemDecoration;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.Callback;
@@ -124,6 +125,7 @@ public class FragmentRepository extends BaseFragment implements SwipeRefreshLayo
             Toast.makeText(getActivity(), "没有数据", Toast.LENGTH_SHORT).show();
             return;
         }
+        allCourseList.clear();
         allCourseList.addAll(courseList);
         courseList.clear();
         studyRecyclerAdapter = new StudyRecyclerAdapter(getActivity(), allCourseList);
@@ -145,6 +147,7 @@ public class FragmentRepository extends BaseFragment implements SwipeRefreshLayo
             Toast.makeText(getActivity(), "没有数据", Toast.LENGTH_SHORT).show();
             return;
         }
+        allResourseKindBean.clear();
         allResourseKindBean.addAll(cataLogList);
         cataLogList.clear();
         LessonCatalogAdapter cataLogAdapter = new LessonCatalogAdapter(getActivity(), allResourseKindBean);
@@ -224,6 +227,11 @@ public class FragmentRepository extends BaseFragment implements SwipeRefreshLayo
     }
 
     private void getResourseNet() {
+
+        if (!NetUtil.isNetworkConnected(getActivity())) {
+            Toast.makeText(getContext(), R.string.has_not_net, Toast.LENGTH_SHORT).show();
+            return;
+        }
         //下拉刷新和加载更多就不用show
         if (!isReFlesh)
             DialogUtils.showDialog(getActivity(), "请稍等");
@@ -299,8 +307,7 @@ public class FragmentRepository extends BaseFragment implements SwipeRefreshLayo
         mHandler.postDelayed(new Runnable() {
             public void run() {
                 isReFlesh = true;
-                allResourseKindBean.clear();
-                allCourseList.clear();
+
                 getResourseNet();
                 swipe_refresh_widget.setRefreshing(false);
                 isReFlesh = false;

@@ -106,7 +106,7 @@ public class FragmentStudy extends BaseFragment implements SwipeRefreshLayout.On
                     if (mLesssListData.size() == 0) {
                         Toast.makeText(getContext(), R.string.has_null_data, Toast.LENGTH_SHORT).show();
                     }
-
+                    allLesssListData.clear();
                     allLesssListData.addAll(mLesssListData);
                     mLesssListData.clear();
 
@@ -345,7 +345,7 @@ public class FragmentStudy extends BaseFragment implements SwipeRefreshLayout.On
         mHandler.postDelayed(new Runnable() {
             public void run() {
                 isReFlesh = true;
-                allLesssListData.clear();
+
                 getStudyData();
                 swipe_refresh_widget.setRefreshing(false);
                 isReFlesh = false;

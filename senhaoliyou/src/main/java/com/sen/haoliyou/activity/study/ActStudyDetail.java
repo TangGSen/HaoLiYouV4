@@ -341,6 +341,13 @@ public class ActStudyDetail extends BaseActivity {
     //点击播放视频
 
     public void videoStartPlay(int postion) {
+        if (sectionList==null){
+            return;
+        }
+        if (sectionList.size()==0){
+            Toast.makeText(ActStudyDetail.this, "没有可播放的视频,请检查网络", Toast.LENGTH_SHORT).show();
+            return;
+        }
         String url = Constants.PATH_PLAYER + childItemBean.getId() + "/" + sectionList.get(postion).getSectionurl();
         Intent startPlayIntent = new Intent(ActStudyDetail.this, VideoPlayerActivity.class);
         startPlayIntent.setData(Uri.parse(url));
