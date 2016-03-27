@@ -6,6 +6,7 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.sen.haoliyou.R;
+import com.sen.haoliyou.imgloader.CircleBitmapDisplayer;
 
 /**
  * 网络图片加载配置类
@@ -48,6 +49,7 @@ public class ImageLoadOptions {
                 .showImageForEmptyUri(R.mipmap.defuser_head)
                 .showImageOnFail(R.mipmap.defuser_head)
                 .displayer(new FadeInBitmapDisplayer(500))
+                .displayer(new CircleBitmapDisplayer())
                 .build();
 
         return displayImageOptions;
