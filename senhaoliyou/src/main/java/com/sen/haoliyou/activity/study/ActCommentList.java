@@ -190,6 +190,7 @@ public class ActCommentList extends BaseActivity  {
                 }, 1000);
             }
         });
+
         xRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             private int mCurrentState = RecyclerView.SCROLL_STATE_IDLE;
 
@@ -210,7 +211,7 @@ public class ActCommentList extends BaseActivity  {
                                 mHandler.postDelayed(new Runnable() {
                                     public void run() {
                                         if (maxPage == currentPage) {
-                                            Toast.makeText(ActCommentList.this, "已加载全部数据", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(ActCommentList.this, "没有更多数据了", Toast.LENGTH_SHORT).show();
                                             return;
                                         }
                                         isLoadMore = true;
@@ -234,6 +235,9 @@ public class ActCommentList extends BaseActivity  {
                 super.onScrollStateChanged(recyclerView, newState);
             }
         });
+
+
+
     }
 
 

@@ -45,8 +45,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.Base">
         <activity
-            android:launchMode="singleTask"
             android:name=".activity.ActSplashScreen"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/ActivityTheme.Base">
             <intent-filter>
@@ -56,25 +56,21 @@
             </intent-filter>
         </activity>
         <activity
-            android:launchMode="singleTask"
             android:name=".activity.MainActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
-            android:launchMode="singleTask"
             android:name=".activity.study.ActStudyDetail"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
-            android:launchMode="singleTask"
             android:name=".activity.VideoPlayerActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="landscape"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
         <activity
-            android:launchMode="singleTask"
-            android:name=".activity.study.ActCommentList"
-            android:screenOrientation="portrait" />
-        <activity
-            android:launchMode="singleTask"
             android:name=".activity.study.ActWriteComment"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.study.ActRepositoryDetail"
@@ -82,7 +78,11 @@
         <activity
             android:name=".activity.exam.ActExamDetail"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.study.ActCommentList"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
 
 
         <activity
@@ -90,8 +90,8 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
-            android:launchMode="singleTask"
             android:name=".activity.DownloadManagerActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.ActHome"
@@ -99,8 +99,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.ActLogin"
-            android:screenOrientation="portrait"
             android:launchMode="singleTask"
+            android:screenOrientation="portrait"
             android:theme="@style/ActLoginTheme" />
         <activity
             android:name=".activity.DevelopingActivity"
