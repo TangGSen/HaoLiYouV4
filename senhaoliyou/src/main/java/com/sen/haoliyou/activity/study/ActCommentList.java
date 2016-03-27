@@ -101,9 +101,7 @@ public class ActCommentList extends BaseActivity  {
                     if (commonList.size() == 0) {
                         Toast.makeText(ActCommentList.this, "当前没评论", Toast.LENGTH_SHORT).show();
                     }
-                    if (isLoadReflesh){
-                        allCommonList.clear();
-                    }
+
                     allCommonList.addAll(commonList);
                     Collections.sort(allCommonList);
                     commonList.clear();
@@ -184,7 +182,7 @@ public class ActCommentList extends BaseActivity  {
                     public void run() {
                         currentPage =1;
                         isLoadReflesh = true;
-
+                        allCommonList.clear();
                         getCommntList(1);
                         isLoadReflesh = false;
                         swipe_refresh_widget.setRefreshing(false);
