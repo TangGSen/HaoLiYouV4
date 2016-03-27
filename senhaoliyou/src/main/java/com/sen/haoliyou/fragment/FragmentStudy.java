@@ -67,6 +67,8 @@ public class FragmentStudy extends BaseFragment implements SwipeRefreshLayout.On
     AppCompatImageView btn_down_manager;
     @Bind(R.id.btn_exit_app)
     AppCompatImageView btn_exit_app;
+    @Bind(R.id.tip_null_data)
+    AppCompatTextView tip_null_data;
     @Bind(R.id.tv_lesson_theme)
     AppCompatTextView tv_lesson_theme;
     @Bind(R.id.study_lesson_recyclerview)
@@ -91,6 +93,7 @@ public class FragmentStudy extends BaseFragment implements SwipeRefreshLayout.On
                 DialogUtils.closeDialog();
             switch (msg.what) {
                 case 0:
+                    setTipNoData(true);
                     Toast.makeText(getActivity(), R.string.net_error_retry, Toast.LENGTH_SHORT).show();
                     break;
 
@@ -100,12 +103,15 @@ public class FragmentStudy extends BaseFragment implements SwipeRefreshLayout.On
                     mLesssListData = homeBeam.getCourselist();
                     // 当返回的数据为空的时候，那么就要显示这个
                     if (mLesssListData == null) {
-//                        Toast.makeText(getContext(), "没有数据", Toast.LENGTH_SHORT).show();
+                        setTipNoData(false);
                         return false;
                     }
                     if (mLesssListData.size() == 0) {
-//                        Toast.makeText(getContext(), R.string.has_null_data, Toast.LENGTH_SHORT).show();
+                        setTipNoData(false);
+                    }else {
+                        setTipNoData(true);
                     }
+
                     allLesssListData.clear();
                     allLesssListData.addAll(mLesssListData);
                     mLesssListData.clear();
@@ -118,6 +124,11 @@ public class FragmentStudy extends BaseFragment implements SwipeRefreshLayout.On
             return false;
         }
     });
+
+
+    public void setTipNoData(boolean isHasData) {
+        tip_null_data.setVisibility(isHasData?View.GONE:View.VISIBLE);
+    }
 
     private void showRecyclerviewItemData(List<LessonItemBean> LesssListData) {
         if (adapter == null) {
@@ -142,7 +153,6 @@ public class FragmentStudy extends BaseFragment implements SwipeRefreshLayout.On
         }
 
     }
-
 
 
     @Override
@@ -185,8 +195,14 @@ public class FragmentStudy extends BaseFragment implements SwipeRefreshLayout.On
 
             allLesssListData = (List<LessonItemBean>) savedInstanceState.getSerializable("LesssListData");
             if (allLesssListData != null) {
-
+                if (allLesssListData.size()==0){
+                    setTipNoData(false);
+                }else {
+                    setTipNoData(true);
+                }
                 showRecyclerviewItemData(allLesssListData);
+            }else {
+                setTipNoData(false);
             }
         }
 
@@ -205,6 +221,7 @@ public class FragmentStudy extends BaseFragment implements SwipeRefreshLayout.On
             int count = (Integer.parseInt(lessonItemBean.getComment()) + event.getSucessCount());
             lessonItemBean.setComment(count + "");
             adapter.notifyItemChanged(event.getPosition());
+
         }
     }
 
@@ -214,6 +231,9 @@ public class FragmentStudy extends BaseFragment implements SwipeRefreshLayout.On
 
     public void onEvent(EventKillPositonStudy event) { //接收方法  在发关事件的线程接收
         adapter.removeItem(event.getPosition());
+        if (allLesssListData.size()==0){
+            setTipNoData(false);
+        }
 
     }
 
@@ -330,8 +350,7 @@ public class FragmentStudy extends BaseFragment implements SwipeRefreshLayout.On
                     dialog.dismiss();
 
             }
-        }, getContext(),"是否注销该账号?", "确定", "取消");
-
+        }, getContext(), "是否注销该账号?", "确定", "取消");
 
 
     }

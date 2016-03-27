@@ -55,6 +55,11 @@
         android:id="@+id/swipe_refresh_widget"
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
 
     <android.support.v7.widget.RecyclerView
             android:id="@+id/study_lesson_recyclerview"
@@ -63,6 +68,17 @@
             android:layout_marginTop="@dimen/common_8dp"
             android:overScrollMode="never"
             android:scrollbars="none" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/tip_null_data"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/fragment_font_16sp"
+            android:textColor="@color/font_h2"
+            android:text="请到资源库添加课程"/>
+        </FrameLayout>
 
     </android.support.v4.widget.SwipeRefreshLayout>
 
