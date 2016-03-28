@@ -70,7 +70,6 @@
                 android:ellipsize="end"
                 android:layout_marginTop="@dimen/common_4dp"
                 android:text="12356489989898989dfdfddfdfdfdf8989我哦哦对方898898989"
-                android:layout_marginBottom="@dimen/common_8dp"
                 android:textColor="@color/primary_text"
 
                 android:textSize="14sp" />

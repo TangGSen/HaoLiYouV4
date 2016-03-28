@@ -172,6 +172,7 @@
                 android:layout_height="@dimen/common_48dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/common_48dp"
+                android:layout_marginBottom="@dimen/common_48dp"
                 android:background="@drawable/seletor_ifcan_exam"
                 android:text="开始考试"
                 android:textColor="@color/tab_bgcolor" />

@@ -59,10 +59,9 @@ public class ExamListAdapter extends RecyclerView.Adapter<ExamListAdapter.ViewHo
         ExamItemBean itemBean = mData.get(position);
 
         holder.tv_exam_name.setText(itemBean.getExamname());
-        holder.tv_exam_name.setText(itemBean.getExamname());
         holder.tv_has_enter.setText("已考："+itemBean.getYetjoincon()+"         允许："+itemBean.getJoincon());
-
-        holder.tv_test_time.setText("时间："+ StringUItils.delString(itemBean.getBegindate(),10)+"至"+StringUItils.delString(itemBean.getEnddate(),10));
+        String time ="时间："+ StringUItils.delString(itemBean.getBegindate(),10)+"至"+StringUItils.delString(itemBean.getEnddate(),10);
+        holder.tv_test_time.setText(time);
 
         int examType =Integer.parseInt(itemBean.getExamtype());
         String examTypeStr = "";
