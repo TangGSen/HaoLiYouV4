@@ -34,6 +34,8 @@ public class SenApplication extends Application {
         ActiveAndroid.initialize(this);
 
         CrashReport.initCrashReport(getApplicationContext(), Constants.APPID, false);
+        CrashHandler crashHandler = CrashHandler.getInstance();
+        crashHandler.init(getApplicationContext());
 
     }
 
