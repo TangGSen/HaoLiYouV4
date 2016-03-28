@@ -194,7 +194,7 @@ public class ActCommentList extends BaseActivity  {
             }
         });
 
-        xRecyclerView.setLaodingMoreProgressStyle(ProgressStyle.BallBeat);
+        xRecyclerView.setLaodingMoreProgressStyle(ProgressStyle.BallPulse);
         xRecyclerView.setPullRefreshEnabled(false);
         xRecyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override
