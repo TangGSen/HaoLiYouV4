@@ -42,6 +42,7 @@ import com.sen.haoliyou.tools.NetUtil;
 import com.sen.haoliyou.tools.ResourcesUtils;
 import com.sen.haoliyou.widget.BaseDialogCumstorTip;
 import com.sen.haoliyou.widget.CustomerDialog;
+import com.tencent.bugly.crashreport.CrashReport;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.Callback;
 
@@ -221,6 +222,7 @@ public class ActExamTest extends BaseActivity implements GestureDetector.OnGestu
     protected void initData(Bundle savedInstanceState) {
         super.initData(savedInstanceState);
         getExamData();
+        CrashReport.testJavaCrash();
 
 
     }
