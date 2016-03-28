@@ -222,7 +222,6 @@ public class ActExamTest extends BaseActivity implements GestureDetector.OnGestu
     protected void initData(Bundle savedInstanceState) {
         super.initData(savedInstanceState);
         getExamData();
-        CrashReport.testJavaCrash();
 
 
     }
