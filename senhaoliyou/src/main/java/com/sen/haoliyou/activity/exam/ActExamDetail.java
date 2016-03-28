@@ -22,8 +22,10 @@ public class ActExamDetail extends BaseActivity {
 
     @Bind(R.id.tv_exam_title)
     AppCompatTextView tv_exam_title;
-    @Bind(R.id.tv_exam_time)
-    AppCompatTextView tv_exam_time;
+    @Bind(R.id.tv_begin_time)
+    AppCompatTextView tv_begin_time;
+    @Bind(R.id.tv_end_time)
+    AppCompatTextView tv_end_time;
     @Bind(R.id.tv_exam_type_detail)
     AppCompatTextView tv_exam_type_detail;
     @Bind(R.id.tv_passs_score)
@@ -79,7 +81,8 @@ public class ActExamDetail extends BaseActivity {
 
     private void showData() {
         tv_exam_title.setText(childItemBean.getExamname());
-        tv_exam_time.setText("时间：" + childItemBean.getBegindate() + "至" + childItemBean.getEnddate());
+        tv_begin_time.setText("开始时间：" + childItemBean.getBegindate() );
+        tv_end_time.setText("结束时间：" + childItemBean.getEnddate());
 
         int examType = Integer.parseInt(childItemBean.getExamtype());
         String examTypeStr = "";
