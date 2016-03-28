@@ -8,13 +8,14 @@ import android.support.v7.widget.AppCompatImageView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.sen.haoliyou.R;
 import com.sen.haoliyou.base.BaseActivity;
 import com.sen.haoliyou.tools.AcountManager;
 import com.sen.haoliyou.tools.Constants;
+import com.sen.haoliyou.tools.ResourcesUtils;
+import com.sen.haoliyou.tools.ToastUtils;
 import com.sen.haoliyou.widget.BaseDialogCumstorTip;
 import com.sen.haoliyou.widget.CustomerDialog;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -180,7 +181,8 @@ public class ActHome extends BaseActivity {
 
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             if((System.currentTimeMillis()-exitTime) >2000)  {
-                Toast.makeText(ActHome.this,R.string.two_down_back_exitapp,Toast.LENGTH_SHORT).show();
+                ToastUtils.showTextToast(ActHome.this, ResourcesUtils.getResString(ActHome.this,R.string.two_down_back_exitapp));
+
                 exitTime = System.currentTimeMillis();
             }else {
                 exitApp();

@@ -20,6 +20,7 @@ import com.sen.haoliyou.fragment.FragmentRepository;
 import com.sen.haoliyou.fragment.FragmentStudy;
 import com.sen.haoliyou.fragment.FragmentTest;
 import com.sen.haoliyou.tools.ResourcesUtils;
+import com.sen.haoliyou.tools.ToastUtils;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -217,7 +218,7 @@ public class MainActivity extends BaseActivity {
 
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             if((System.currentTimeMillis()-exitTime) >2000)  {
-                Toast.makeText(MainActivity.this,R.string.two_down_back_exitapp,Toast.LENGTH_SHORT).show();
+                ToastUtils.showTextToast(MainActivity.this,ResourcesUtils.getResString(MainActivity.this,R.string.two_down_back_exitapp));
                 exitTime = System.currentTimeMillis();
             }else {
                 exitApp();

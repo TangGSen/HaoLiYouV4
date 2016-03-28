@@ -19,7 +19,9 @@ import com.sen.haoliyou.mode.UserInfoBean;
 import com.sen.haoliyou.tools.Constants;
 import com.sen.haoliyou.tools.DialogUtils;
 import com.sen.haoliyou.tools.NetUtil;
+import com.sen.haoliyou.tools.ResourcesUtils;
 import com.sen.haoliyou.tools.SenApplication;
+import com.sen.haoliyou.tools.ToastUtils;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.Callback;
 
@@ -190,8 +192,7 @@ public class ActLogin extends BaseActivity {
 
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             if((System.currentTimeMillis()-exitTime) >2000)  {
-                Toast.makeText(ActLogin.this, R.string.two_down_back_exitapp,Toast.LENGTH_SHORT).show();
-
+                ToastUtils.showTextToast(ActLogin.this, ResourcesUtils.getResString(ActLogin.this,R.string.two_down_back_exitapp));
                 exitTime = System.currentTimeMillis();
             }else {
                 exitApp();

@@ -25,6 +25,7 @@ import com.sen.haoliyou.tools.AcountManager;
 import com.sen.haoliyou.tools.Constants;
 import com.sen.haoliyou.tools.DialogUtils;
 import com.sen.haoliyou.tools.NetUtil;
+import com.sen.haoliyou.tools.ToastUtils;
 import com.sen.haoliyou.widget.RecyleViewItemDecoration;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.Callback;
@@ -59,36 +60,48 @@ public class ActSearchLesson extends BaseActivity {
     private List<LessonItemBean> mLesssListData;
     private List<LessonItemBean> allLesssListData;
 
+    //延迟去搜索，防止用户快速多点
+    private static final int DELAY_TO_SEARCH = 3;
+
     private Handler mHandler = new Handler(new Handler.Callback() {
         @Override
         public boolean handleMessage(Message msg) {
+            DialogUtils.closeDialog();
             switch (msg.what) {
                 case 0:
-                    DialogUtils.closeDialog();
+
                     Toast.makeText(ActSearchLesson.this, "网络异常，请稍后重试", Toast.LENGTH_SHORT).show();
                     break;
                 case 1:
-                    DialogUtils.closeDialog();
-                    LessonListHomeBean homeBeam = (LessonListHomeBean) msg.obj;
-                    mLesssListData = homeBeam.getCoursesList();
 
+                    LessonListHomeBean homeBeam = (LessonListHomeBean) msg.obj;
+                    if (homeBeam==null){
+                        return false;
+                    }
+                    mLesssListData = homeBeam.getCoursesList();
+                    if (mLesssListData==null){
+                        return false;
+                    }
                     // 当返回的数据为空的时候，那么就要显示这个
+
                     if (mLesssListData.size() == 0) {
-                        Toast.makeText(ActSearchLesson.this, "没有数据，换关键字搜搜", Toast.LENGTH_SHORT).show();
+                        ToastUtils.showTextToast(ActSearchLesson.this,"没有数据，换关键字搜搜");
                     } else {
                         allLesssListData.addAll(mLesssListData);
                         mLesssListData.clear();
                         showRecyclerviewItemData(allLesssListData);
 
-                        break;
-
                     }
 
 
                     break;
+                case 3:
+                    search();
+                    break;
 
 
             }
+
             return false;
         }
     });
@@ -144,6 +157,7 @@ public class ActSearchLesson extends BaseActivity {
 
     private void getSearchList(String search) {
         if (!NetUtil.isNetworkConnected(this)) {
+            DialogUtils.closeDialog();
             Toast.makeText(ActSearchLesson.this, "网络未连接", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -190,14 +204,25 @@ public class ActSearchLesson extends BaseActivity {
     @OnClick(R.id.bt_search_click)
     public void searchLesson() {
         allLesssListData.clear();
+        mHandler.removeMessages(DELAY_TO_SEARCH);
+        //绑定一个msg，内容为接下来需要的button的ID，
+        Message msg = Message.obtain();
+        msg.what = DELAY_TO_SEARCH;
+        //发送消息间隔1秒
+        mHandler.sendMessageDelayed(msg, 200);
+
+
+    }
+
+    private void search() {
         String content = et_search.getText().toString();
         if (TextUtils.isEmpty(content)) {
-            Toast.makeText(ActSearchLesson.this, "请输入内容", Toast.LENGTH_SHORT).show();
+            ToastUtils.showTextToast(ActSearchLesson.this,"请输入内容");
         } else {
-
             getSearchList(content);
         }
     }
+
     @OnClick(R.id.btn_back_search)
     public void back() {
        finish();
