@@ -105,7 +105,7 @@ public class ActExamTest extends BaseActivity implements GestureDetector.OnGestu
         public boolean handleMessage(Message msg) {
             switch (msg.what) {
                 case 0:
-                    DialogUtils.closeDialog();
+
                     Toast.makeText(ActExamTest.this, "网络异常，请稍后重试", Toast.LENGTH_SHORT).show();
                     break;
                 case 1:
@@ -114,7 +114,6 @@ public class ActExamTest extends BaseActivity implements GestureDetector.OnGestu
                     paperId = homeBeam.getPaperid();
                     questionLists = homeBeam.getQuestionList();
                     if (questionLists == null) {
-                        DialogUtils.closeDialog();
                         Toast.makeText(ActExamTest.this, "获取试卷数据失败，请重试", Toast.LENGTH_SHORT).show();
                         return false;
                     }
@@ -125,7 +124,6 @@ public class ActExamTest extends BaseActivity implements GestureDetector.OnGestu
                     }
                     settingBtnAble(true);
                     showExamQuestion();
-                    DialogUtils.closeDialog();
 
                     break;
 
@@ -135,7 +133,6 @@ public class ActExamTest extends BaseActivity implements GestureDetector.OnGestu
                     break;
                 case 3:
                     Boolean isSesscess = (Boolean) msg.obj;
-                    DialogUtils.closeUnCancleDialog();
                     if (isSesscess) {
                         Toast.makeText(ActExamTest.this, "提交成功", Toast.LENGTH_SHORT).show();
                         settingBtnAble(false);
@@ -150,7 +147,6 @@ public class ActExamTest extends BaseActivity implements GestureDetector.OnGestu
                     break;
                 case 4:
                     setSubmitTestBtn(true);
-                    DialogUtils.closeUnCancleDialog();
                     Toast.makeText(ActExamTest.this, "提交失败,请重新交卷", Toast.LENGTH_SHORT).show();
                     break;
                 case 5:
@@ -161,6 +157,8 @@ public class ActExamTest extends BaseActivity implements GestureDetector.OnGestu
                     showNextQuestion();
                     break;
             }
+            DialogUtils.closeDialog();
+            DialogUtils.closeUnCancleDialog();
             return false;
         }
     });
@@ -232,6 +230,7 @@ public class ActExamTest extends BaseActivity implements GestureDetector.OnGestu
             Toast.makeText(ActExamTest.this, "网络未连接", Toast.LENGTH_SHORT).show();
             return;
         }
+        DialogUtils.showunCancleDialog(this,"请稍后");
         String url = Constants.PATH + Constants.PATH_ENTEREXAM;
         OkHttpUtils.post()
                 .url(url)

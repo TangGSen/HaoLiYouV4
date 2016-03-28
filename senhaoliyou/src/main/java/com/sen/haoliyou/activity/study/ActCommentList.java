@@ -188,7 +188,7 @@ public class ActCommentList extends BaseActivity  {
                         allCommonList.clear();
                         getCommntList(1);
                         isLoadReflesh = false;
-                        xRecyclerView.refreshComplete();
+                        swipe_refresh_widget.setRefreshing(false);
                     }
                 }, 1000);
             }

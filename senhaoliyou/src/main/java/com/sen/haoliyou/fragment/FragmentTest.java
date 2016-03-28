@@ -167,11 +167,11 @@ public class FragmentTest extends BaseFragment  implements SwipeRefreshLayout.On
     }
 
     public void onEvent(EventSubmitAnswerSucess event) {
-        if (allExamItemBeanList != null) {
+       /* if (allExamItemBeanList != null) {
             allExamItemBeanList.clear();
         }else{
             allExamItemBeanList = new ArrayList<>();
-        }
+        }*/
         getExamListData();
     }
 
@@ -246,7 +246,6 @@ public class FragmentTest extends BaseFragment  implements SwipeRefreshLayout.On
         mHandler.postDelayed(new Runnable() {
             public void run() {
                 isReFlesh = true;
-
                 getExamListData();
                 swipe_refresh_widget.setRefreshing(false);
                 isReFlesh = false;
